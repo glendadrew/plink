@@ -27,18 +27,18 @@ var canvasCtx = canvas.getContext("2d");
 if (navigator.getUserMedia) {
   console.log('getUserMedia supported.');
 
-  var types = ["video/webm", 
-             "audio/webm", 
-             "video/webm\;codecs=vp8", 
-             "video/webm\;codecs=daala", 
-             "video/webm\;codecs=h264", 
+  var types = ["video/webm",
+             "audio/webm",
+             "video/webm\;codecs=vp8",
+             "video/webm\;codecs=daala",
+             "video/webm\;codecs=h264",
              "video/mpeg",
              "audio/ogg",
              "audio/webm\;codecs=opus",
              "audio/ogg\;codecs=opus"];
 
-  for (var i in types) { 
-    console.log( "Is " + types[i] + " supported? " + (MediaRecorder.isTypeSupported(types[i]) ? "Maybe!" : "Nope :(")); 
+  for (var i in types) {
+    console.log( "Is " + types[i] + " supported? " + (MediaRecorder.isTypeSupported(types[i]) ? "Maybe!" : "Nope :("));
   }
 
   var constraints = { audio: true };
@@ -75,15 +75,17 @@ if (navigator.getUserMedia) {
     mediaRecorder.onstop = function(e) {
       console.log("data available after MediaRecorder.stop() called.");
 
+      // not going to live in the final project
       function createClip(clipName, audioURL) {
         // clipName was here
         var clipContainer = document.createElement('article');
         var clipLabel = document.createElement('p');
         var audio = document.createElement('audio');
         var deleteButton = document.createElement('button');
-       
+
         clipContainer.classList.add('clip');
-        audio.setAttribute('controls', '');
+        // audio.setAttribute('controls', '');
+        audio.play();
         deleteButton.textContent = 'Delete';
         deleteButton.className = 'delete';
 
@@ -107,13 +109,13 @@ if (navigator.getUserMedia) {
         deleteButton.onclick = function(e) {
           evtTgt = e.target;
           evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
- 
+
           // added to allow garbage collection of blobs
           // variable binding seems to occur and persist, so we can reference audioURL and deleteButton
           // and they will refer to the values current on binding!?
           // we'd also want to null blob if there were more references to it around
           // all three ways of obtaining src are equivalent and equal to originally audioURL
-          // note must get src before removing elements but not if using audioURL 
+          // note must get src before removing elements but not if using audioURL
           //let src = evtTgt.parentNode.querySelector("audio").src;
           //let src = this.parentNode.querySelector("audio").src;
           //let src = deleteButton.parentNode.querySelector("audio").src;
@@ -122,6 +124,8 @@ if (navigator.getUserMedia) {
           //   window.URL.revokeObjectURL(src);
           // }
           if (audioURL.includes("blob")) {
+            // cleans up, make sure this stays on whether audio is saved or not
+            // for memory
             window.URL.revokeObjectURL(audioURL);
           }
         }
@@ -140,8 +144,10 @@ if (navigator.getUserMedia) {
       //console.log(clipName);
       var blob = new Blob(chunks, { 'type' : 'audio/webm; codecs=opus' });
       chunks = [];
+      // this is important...translates the blob into a URL
       var audioURL = window.URL.createObjectURL(blob);
-      createClip(clipName, audioURL);
+      // if we want to see the clip on screen
+      // createClip(clipName, audioURL);
 
       // Save to Firebase
       console.log("Saving to Firebase");
@@ -187,7 +193,7 @@ if (navigator.getUserMedia) {
         let data = {
           time: time,
           downloadURL: downloadURL,
-          date: d.toISOString()        
+          date: d.toISOString()
         }
 
         let databaseRef = firebase.database().ref("tmp").push(data);
@@ -198,7 +204,7 @@ if (navigator.getUserMedia) {
         //var blob = new Blob(chunks, { 'type' : 'audio/webm; codecs=opus' });
         //chunks = [];
         audioURL = downloadURL;
-        createClip(clipName, audioURL);
+        //createClip(clipName, audioURL);
       });
     }
 
@@ -226,7 +232,7 @@ function visualize(stream) {
 
   source.connect(analyser);
   //analyser.connect(audioCtx.destination);
-  
+
   WIDTH = canvas.width
   HEIGHT = canvas.height;
 
@@ -251,7 +257,7 @@ function visualize(stream) {
 
 
     for(var i = 0; i < bufferLength; i++) {
- 
+
       var v = dataArray[i] / 128.0;
       var y = v * HEIGHT/2;
 
@@ -269,4 +275,3 @@ function visualize(stream) {
 
   }
 }
-
