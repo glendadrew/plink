@@ -11,6 +11,7 @@ html, body {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 0.8rem;
+  overflow: hidden;
 }
 
 .wrapper {
@@ -46,12 +47,16 @@ canvas {
 #buttons button {
   font-size: 1rem;
   padding: 1rem;
+  /*
+  width:600px;
+  height:600px;
   width: calc(50% - 0.25rem);
+  */
 }
 
 button {
   font-size: 1rem;
-  background: #0088cc;
+  /* background: #0088cc; */
   text-align: center;
   color: white;
   border: none;
@@ -61,7 +66,7 @@ button {
 
 button:hover, button:focus {
   box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
-  background: #0ae;
+  /* background: #0ae; */
 }
 
 button:active {
