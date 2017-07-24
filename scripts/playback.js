@@ -75,51 +75,99 @@ function createClip(clipName, audioURL) {
   }
 }
 
-// initialize clip element
-var clipName = null;
-var audioURL = null;
-createClip(clipName, audioURL);
-
-// maintain one clip audio element for everything
-var clip = document.querySelector('.clip');
 
 var databaseRef = firebase.database().ref("tmp");
 
-// save audio metadata objects in chronological order as they are added to firebase
+// saves audio metadata objects in chronological order as they are added to firebase
 var urls = [];
+var currentIndex;  // index of audio currently playing, is set to 0 when more audio recieved and we need to start at the top
 
-databaseRef.orderByKey().on("child_added", function(snapshot) {
-  //console.log(snapshot.key);
-  //console.log(snapshot.val());
+function resetIndex() {
+   currentIndex = 0;
+}
 
-  // add new database object with downloadURL and date properties
-  urls.push(snapshot.val());
+// reads database once and initialize things
+// using ref.on is asynchronous and I'm not ready to commit to a fuzzy start up
+databaseRef.orderByKey().once("value", function(snapshot) {
+  console.log("value once!")
+  // ugly but correct way to clear array
+  urls.splice(0,urls.length);
+  // forEach is necessary to ensure ordering
+  snapshot.forEach(function(childSnapshot) {
+    // adds next audio to urls array
+    urls.push(childSnapshot.val());
+  });
+  //console.log("Number of db entries:", snapshot.numChildren());
+  //console.log("Size of urls array:", urls.length);
 
-  var downloadURL = snapshot.val().downloadURL;
-  var date = snapshot.val().date;
+  // creates and initializes audio element
+  currentIndex = urls.length-1;
+  var audioURL = urls[currentIndex].downloadURL;
+  var clipName = urls[currentIndex].date;
+  createClip(clipName, audioURL);
+  console.log("First audio ["+currentIndex+"]", clipName, audioURL);
 
-  // immediately updates player with new file
-  clip.querySelector('audio').src = downloadURL;
-  clip.querySelector('p').textContent = date;
-  //console.log(clip.querySelector('audio').src, clip.querySelector('p').textContent);
+  var audio = document.querySelector('audio');
+  audio.play();
+
+  // sets callback for when audio completes
+  audio.addEventListener('ended', function (e) {
+    //audio.currentTime = 0;  // may be necessary or else callback might only be called once, and may be necessary to pause before
+    console.log('Audio ended: duration', audio.duration);
+    audio.pause();  // may not be necessary
+
+    if (currentIndex > 0) {
+      currentIndex--;
+    } else {
+      currentIndex = urls.length-1;
+    }
+    var audioURL = urls[currentIndex].downloadURL;
+    var clipName = urls[currentIndex].date;
+    console.log("Next audio ["+currentIndex+"]", clipName, audioURL);
+
+    audio.src = audioURL;
+    audio.nextSibling.textContent = clipName;  // next sibling is p
+
+    audio.play();
+  }, false);
 });
 
+databaseRef.orderByKey().on("value", function(snapshot) {
+  console.log("value on!");
+  // ugly but right way to clear array
+  urls.splice(0,urls.length);
+  snapshot.forEach(function(childSnapshot) {
+    urls.push(childSnapshot.val());
+  });
+  console.log("Number of db entries:", snapshot.numChildren());
+  console.log("Size of urls array:", urls.length);
 
-
-
-// Save to Firebase
-
-//let storageRef = firebase.storage().ref("tmp").child(time + ".webm")
-//let uploadTask = storageRef.put(blob);
-
-//var downloadURL = uploadTask.snapshot.downloadURL;
-//console.log("File uploaded: ("+uploadTask.snapshot.totalBytes, "bytes)", downloadURL);
-
-
+  // reset current index to 0 so we restart at last index (most recent) next 
+  resetIndex();
+});
 
 console.log("End of JS");
 
 // IGNORE BELOW
+
+// perhaps a more clever proach could include using child_added instead of value callback so only new entries are returned
+// but that would require manicuring urls array manually instead of just dumping it from the snapshot
+// databaseRef.orderByKey().on("child_added", function(snapshot) {
+//   //console.log(snapshot.key);
+//   //console.log(snapshot.val());
+
+//   // add new database object with downloadURL and date properties
+//   urls.push(snapshot.val());
+
+//   console.log(currentURLIndex, '/', snapshot.numChildren());
+
+//   //var downloadURL = snapshot.val().downloadURL;
+//   //var date = snapshot.val().date;
+//   // immediately updates player with new file
+//   //clip.querySelector('audio').src = downloadURL;
+//   //clip.querySelector('p').textContent = date;
+//   //console.log(clip.querySelector('audio').src, clip.querySelector('p').textContent);
+// });
 
 // on-value returns an object so we have to iterate
 // doesn't make sense to order by value if values are objects!
