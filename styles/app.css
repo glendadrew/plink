@@ -1,27 +1,26 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/*
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  /*
 html, body {
   height: 100%;
 }
 */
 
-body {
-  /*
+  body {
+    /*
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 0.8rem;
   */
-  overflow: hidden;
-  width:1920px;
-  height:1080px;
-  background-repeat: no-repeat;
-}
-
-/*
+    overflow: hidden;
+    width: 1920px;
+    height: 1080px;
+    background-color: black;
+    background-repeat: no-repeat;
+  }
+  /*
 .wrapper {
   height: 100%;
   display: flex;
@@ -41,15 +40,17 @@ h1, h2 {
 
 */
 
-canvas {
-  position:absolute;
-  top:458px;
-  left:201px;
-  width: 600px;
-  height: 60px;
-  display: block;
-}
-/*
+  canvas {
+    position: absolute;
+    left: 515px;
+    top: 188px;
+    z-index: 1;
+    width: 500px;
+    height: 90px;
+    display: block;
+     transform: rotate(-7deg);
+  }
+  /*
 #buttons {
   display: flex;
   flex-direction: row;
@@ -65,9 +66,10 @@ canvas {
 
 }
 */
-button {
-  position:absolute;
-  /*
+
+  button {
+    position: absolute;
+    /*
   font-size: 1rem;
   background: #0088cc;
   text-align: center;
@@ -76,9 +78,8 @@ button {
   transition: all 0.2s;
   padding: 0.5rem;
   */
-}
-
-/*
+  }
+  /*
 button:hover, button:focus {
   box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
    background: #0ae;
@@ -90,93 +91,99 @@ button:active {
 }
 */
 
-.record {
-  left: 59px;
-  top: 22px;
-}
-.stop {
-  left: 509px;
-  top: 266px;
-}
-.save {
-  left: 987px;
-  top: 73px;
-}
-.restart {
-  left: 23px;
-  top: 306px;
-}
-.record {
-  left: 59px;
-  top: 22px;
-}
-.playing {
-left: 928px;
-top: 111px;
-}
-/* Make the clips use as much space as possible, and
+  .record {
+    left: 59px;
+    top: 22px;
+  }
+
+  .stop {
+    left: 509px;
+    top: 266px;
+  }
+
+  .save {
+    left: 987px;
+    top: 73px;
+  }
+
+  .restart {
+    left: 23px;
+    top: 306px;
+  }
+
+  .record {
+    left: 59px;
+    top: 22px;
+  }
+
+  .playing {
+    position: absolute;
+    left: 942px;
+    top: 111px;
+  }
+  /* Make the clips use as much space as possible, and
  * also show a scrollbar when there are too many clips to show
  * in the available space */
-.sound-clips {
-  flex: 1;
-  overflow: auto;
-}
 
-section, article {
-  display: block;
-}
+  .sound-clips {
+    flex: 1;
+    overflow: auto;
+  }
 
-.clip {
-  padding-bottom: 1rem;
-}
+  section, article {
+    display: block;
+  }
 
-audio {
-  width: 100%;
-  display: block;
-  margin: 1rem auto 0.5rem;
-}
+  .clip {
+    padding-bottom: 1rem;
+  }
 
-.clip p {
-  display: inline-block;
-  font-size: 1rem;
-}
+  audio {
+    width: 100%;
+    display: block;
+    margin: 1rem auto 0.5rem;
+  }
 
-.clip button {
-  font-size: 1rem;
-  float: right;
-}
+  .clip p {
+    display: inline-block;
+    font-size: 1rem;
+  }
 
-button.delete {
-  background: #f00;*/
-  padding: 0.5rem 0.75rem;
-  font-size: 0.8rem;
-}
+  .clip button {
+    font-size: 1rem;
+    float: right;
+  }
 
-/* Checkbox hack to control information box display */
+  button.delete {
+    background: #f00;
+    */ padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  /* Checkbox hack to control information box display */
 
-label {
-  font-size: 3rem;
-  position: absolute;
-  top: 2px;
-  right: 3px;
-  z-index: 5;
-  cursor: pointer;
-}
+  label {
+    font-size: 3rem;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    z-index: 5;
+    cursor: pointer;
+  }
 
-input[type=checkbox] {
-   position: absolute;
-   top: -100px;
-}
+  input[type=checkbox] {
+    position: absolute;
+    top: -100px;
+  }
 
-aside {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: translateX(100%);
-  transition: 0.3s all ease-out;
-  /*background-color: #efefef;*.
+  aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(100%);
+    transition: 0.3s all ease-out;
+    /*background-color: #efefef;*.
   padding: 1rem;
 }
 
@@ -190,17 +197,14 @@ aside a {
 }
 
 /* Toggled State of information box */
-input[type=checkbox]:checked ~ aside {
-  transform: translateX(0);
-}
-
-/* Cursor when clip name is clicked over */
-
-.clip p {
-  cursor: pointer;
-}
-
-/* Adjustments for wider screens
+    input[type=checkbox]:checked~aside {
+      transform: translateX(0);
+    }
+    /* Cursor when clip name is clicked over */
+    .clip p {
+      cursor: pointer;
+    }
+    /* Adjustments for wider screens
 @media all and (min-width: 800px) {
   /* Don't take all the space as readability is lost when line length
      goes past a certain size
