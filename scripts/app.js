@@ -244,7 +244,7 @@ function visualize(stream) {
 
     analyser.getByteTimeDomainData(dataArray);
 
-    canvasCtx.fillStyle = 'rgba(0, 0, 0, .1)';
+    canvasCtx.fillStyle = 'rgba(12, 12, 12, .1)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
     canvasCtx.lineWidth = 2;
