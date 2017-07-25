@@ -1,171 +1,219 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
-
+/*
 html, body {
-  height: 100%;
+height: 100%;
 }
+*/
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 0.8rem;
-  width:1920px;
-  height:1080px;
-  overflow:hidden;
+/*
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 0.8rem;
+*/
+overflow: hidden;
+width: 1920px;
+height: 1080px;
+background-color: black;
+background-repeat: no-repeat;
 }
-
+/*
 .wrapper {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+height: 100%;
+display: flex;
+flex-direction: column;
 }
 
 h1, h2 {
-  font-size: 2rem;
-  text-align: center;
-  font-weight: normal;
-  padding: 0.5rem 0 0 0;
+font-size: 2rem;
+text-align: center;
+font-weight: normal;
+padding: 0.5rem 0 0 0;
 }
 
 .main-controls {
-  padding: 0.5rem 0;
+padding: 0.5rem 0;
 }
+
+*/
 
 canvas {
-  width: 100%;
-  height: 60px;
-  display: block;
-  margin-bottom: 0.5rem;
+position: absolute;
+left: 495px;
+top: 160px;
+z-index: 1;
+width: 505px;
+height: 90px;
+display: block;
+ transform: rotate(-7deg);
 }
-
+/*
 #buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
 }
 
 #buttons button {
-  font-size: 1rem;
-  padding: 1rem;
-  width: calc(33% - 0.15rem);
-}
+font-size: 1rem;
+padding: 1rem;
+width:600px;
+height:600px;
+width: calc(50% - 0.25rem);
 
-button {
-  font-size: 1rem;
-  background: #0088cc;
-  text-align: center;
-  color: white;
-  border: none;
-  transition: all 0.2s;
-  padding: 0.5rem;
 }
+*/
 
+button, span {
+position: absolute;
+background:transparent;
+border:none;
+/*
+font-size: 1rem;
+background: #0088cc;
+text-align: center;
+color: white;
+border: none;
+transition: all 0.2s;
+padding: 0.5rem;
+*/
+}
+/*
 button:hover, button:focus {
-  box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
-  background: #0ae;
+box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
+background: #0ae;
 }
 
 button:active {
-  box-shadow: inset 0px 0px 20px rgba(0,0,0,0.5);
-  transform: translateY(2px);
+box-shadow: inset 0px 0px 20px rgba(0,0,0,0.5);
+transform: translateY(2px);
+}
+*/
+
+.record, .recording {
+left: 59px;
+top: 22px;
+}
+.recording {
+display: none;
+}
+.stop {
+left: 509px;
+top: 266px;
+display:none;
 }
 
+.save {
+left: 987px;
+top: 73px;
+display:none;
+}
 
+.playing {
+position: absolute;
+left: 932px;
+top: 125px;
+display:none;
+}
+
+.restart {
+  left: 23px;
+  top: 306px;
+  display:none;
+}
 /* Make the clips use as much space as possible, and
- * also show a scrollbar when there are too many clips to show
- * in the available space */
+* also show a scrollbar when there are too many clips to show
+* in the available space */
+
 .sound-clips {
-  flex: 1;
-  overflow: auto;
+flex: 1;
+overflow: auto;
 }
 
 section, article {
-  display: block;
+display: block;
 }
 
 .clip {
-  padding-bottom: 1rem;
+padding-bottom: 1rem;
 }
 
 audio {
-  width: 100%;
-  display: block;
-  margin: 1rem auto 0.5rem;
+width: 100%;
+display: block;
+margin: 1rem auto 0.5rem;
 }
 
 .clip p {
-  display: inline-block;
-  font-size: 1rem;
+display: inline-block;
+font-size: 1rem;
 }
 
 .clip button {
-  font-size: 1rem;
-  float: right;
+font-size: 1rem;
+float: right;
 }
 
 button.delete {
-  background: #f00;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.8rem;
+background: #f00;
+*/ padding: 0.5rem 0.75rem;
+font-size: 0.8rem;
 }
-
 /* Checkbox hack to control information box display */
 
 label {
-  font-size: 3rem;
-  position: absolute;
-  top: 2px;
-  right: 3px;
-  z-index: 5;
-  cursor: pointer;
+font-size: 3rem;
+position: absolute;
+top: 2px;
+right: 3px;
+z-index: 5;
+cursor: pointer;
 }
 
 input[type=checkbox] {
-   position: absolute;
-   top: -100px;
+position: absolute;
+top: -100px;
 }
 
 aside {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: translateX(100%);
-  transition: 0.3s all ease-out;
-  background-color: #efefef;
-  padding: 1rem;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+transform: translateX(100%);
+transition: 0.3s all ease-out;
+/*background-color: #efefef;*.
+padding: 1rem;
 }
 
 aside p {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
+font-size: 1.2rem;
+margin: 0.5rem 0;
 }
 
 aside a {
-  color: #666;
+color: #666;
 }
 
 /* Toggled State of information box */
-input[type=checkbox]:checked ~ aside {
+input[type=checkbox]:checked~aside {
   transform: translateX(0);
 }
-
 /* Cursor when clip name is clicked over */
-
 .clip p {
   cursor: pointer;
 }
-
-/* Adjustments for wider screens */
+/* Adjustments for wider screens
 @media all and (min-width: 800px) {
-  /* Don't take all the space as readability is lost when line length
-     goes past a certain size */
-  .wrapper {
-    width: 90%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
+/* Don't take all the space as readability is lost when line length
+ goes past a certain size
+.wrapper {
+width: 90%;
+max-width: 1000px;
+margin: 0 auto;
 }
+}*/
