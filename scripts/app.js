@@ -9,8 +9,11 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
 // set up basic variables for app
 
 var record = document.querySelector('.record');
+var recording = document.querySelector('.recording');
 var stop = document.querySelector('.stop');
 var save = document.querySelector('.save');
+var restart = document.querySelector('.restart');
+var playing = document.querySelector('.playing');
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
 
@@ -20,8 +23,8 @@ stop.disabled = true;
 save.disabled = true;
 
 // grey out disabled buttons
-stop.style.background = "gray";
-save.style.background = "gray";
+// stop.style.background = "gray";
+// save.style.background = "gray";
 
 // visualiser setup - create web audio api context and canvas
 
@@ -33,18 +36,18 @@ var canvasCtx = canvas.getContext("2d");
 if (navigator.getUserMedia) {
   console.log('getUserMedia supported.');
 
-  var types = ["video/webm", 
-             "audio/webm", 
-             "video/webm\;codecs=vp8", 
-             "video/webm\;codecs=daala", 
-             "video/webm\;codecs=h264", 
+  var types = ["video/webm",
+             "audio/webm",
+             "video/webm\;codecs=vp8",
+             "video/webm\;codecs=daala",
+             "video/webm\;codecs=h264",
              "video/mpeg",
              "audio/ogg",
              "audio/webm\;codecs=opus",
              "audio/ogg\;codecs=opus"];
 
-  for (var i in types) { 
-    console.log( "Is " + types[i] + " supported? " + (MediaRecorder.isTypeSupported(types[i]) ? "Maybe!" : "Nope :(")); 
+  for (var i in types) {
+    console.log( "Is " + types[i] + " supported? " + (MediaRecorder.isTypeSupported(types[i]) ? "Maybe!" : "Nope :("));
   }
 
   var constraints = { audio: true };
@@ -64,9 +67,13 @@ if (navigator.getUserMedia) {
       console.log(mediaRecorder.state);
       console.log(mediaRecorder.mimeType);
       console.log("recorder started");
-      record.style.background = "red";
-      save.style.background = "gray";
-      stop.style.background = "";
+      //record.style.background = "red";
+      //save.style.background = "gray";
+      //stop.style.background = "";
+      restart.style.display = "none";
+      record.style.display = "none";
+      recording.style.display = "block";
+      stop.style.display = "block";
 
       stop.disabled = false;
       save.disabled = true;
@@ -79,23 +86,54 @@ if (navigator.getUserMedia) {
       mediaRecorder.stop();
       console.log(mediaRecorder.state);
       console.log("recorder stopped");
-      record.style.background = "";
-      record.style.color = "";
-      stop.style.background = "gray";
-      save.style.background = "";
+      // record.style.background = "";
+      // record.style.color = "";
+      // stop.style.background = "gray";
+      // save.style.background = "";
       // mediaRecorder.requestData();
+
+      restart.style.display = "block";
+      recording.style.display = "none";
+      stop.style.display = "none";
+      playing.style.display = "block";
+      save.style.display = "block";
 
       save.disabled = false;
       stop.disabled = true;
       record.disabled = false;
     }
 
+    restart.onclick = function() {
+      console.log("restart");
+      // record.style.background = "";
+      // stop.style.background = "gray";
+      // save.style.background = "gray";
+      // mediaRecorder.requestData();
+
+      restart.style.display = "none";
+      record.style.display = "block";
+      stop.style.display = "none";
+      playing.style.display = "none";
+      save.style.display = "none";
+
+      save.disabled = true;
+      stop.disabled = true;
+      record.disabled = false;
+    }
+
+
     save.onclick = function() {
       console.log("saving to firebase");
-      record.style.background = "";
-      stop.style.background = "gray";
-      save.style.background = "gray";
+      // record.style.background = "";
+      // stop.style.background = "gray";
+      // save.style.background = "gray";
       // mediaRecorder.requestData();
+
+      restart.style.display = "none";
+      record.style.display = "block";
+      stop.style.display = "none";
+      playing.style.display = "none";
+      save.style.display = "block";
 
       save.disabled = true;
       stop.disabled = true;
@@ -150,7 +188,7 @@ if (navigator.getUserMedia) {
         let data = {
           time: time,
           downloadURL: downloadURL,
-          date: d.toISOString()        
+          date: d.toISOString()
         }
 
         let databaseRef = firebase.database().ref("tmp").push(data);
@@ -197,11 +235,13 @@ if (navigator.getUserMedia) {
     var clipLabel = document.createElement('p');
     var audio = document.createElement('audio');
     var deleteButton = document.createElement('button');
-   
+
     clipContainer.classList.add('clip');
-    audio.setAttribute('controls', '');
+    audio.setAttribute('autoplay', '');
+    audio.style.display = "none";
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'delete';
+      deleteButton.style.display = "none";
 
     if(clipName === null) {
       clipLabel.textContent = 'My unnamed clip';
@@ -229,7 +269,7 @@ if (navigator.getUserMedia) {
       // and they will refer to the values current on binding!?
       // we'd also want to null blob if there were more references to it around
       // all three ways of obtaining src are equivalent and equal to originally audioURL
-      // note must get src before removing elements but not if using audioURL 
+      // note must get src before removing elements but not if using audioURL
       //let src = evtTgt.parentNode.querySelector("audio").src;
       //let src = this.parentNode.querySelector("audio").src;
       //let src = deleteButton.parentNode.querySelector("audio").src;
@@ -273,7 +313,7 @@ function visualize(stream) {
 
   source.connect(analyser);
   //analyser.connect(audioCtx.destination);
-  
+
   WIDTH = canvas.width
   HEIGHT = canvas.height;
 
@@ -285,11 +325,11 @@ function visualize(stream) {
 
     analyser.getByteTimeDomainData(dataArray);
 
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillStyle = 'rgba(12, 12, 12, .1)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+    canvasCtx.strokeStyle = 'rgb(255, 255, 255)';
 
     canvasCtx.beginPath();
 
@@ -298,7 +338,7 @@ function visualize(stream) {
 
 
     for(var i = 0; i < bufferLength; i++) {
- 
+
       var v = dataArray[i] / 128.0;
       var y = v * HEIGHT/2;
 
@@ -316,4 +356,3 @@ function visualize(stream) {
 
   }
 }
-
