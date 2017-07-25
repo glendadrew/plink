@@ -132,7 +132,7 @@ if (navigator.getUserMedia) {
       record.style.display = "block";
       stop.style.display = "none";
       playing.style.display = "none";
-      save.style.display = "block";
+      save.style.display = "none";
 
       save.disabled = true;
       stop.disabled = true;
