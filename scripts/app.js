@@ -54,7 +54,8 @@ if (navigator.getUserMedia) {
       console.log(mediaRecorder.state);
       console.log(mediaRecorder.mimeType);
       console.log("recorder started");
-      record.style.background = "";
+      record.style.background = "transparent";
+      record.style.border - "0px";
 
       stop.disabled = false;
       record.disabled = true;
