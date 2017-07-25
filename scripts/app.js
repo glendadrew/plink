@@ -62,6 +62,8 @@ if (navigator.getUserMedia) {
 
     visualize(stream);
 
+    record.style.zIndex = "1";
+
     record.onclick = function() {
       mediaRecorder.start();
       console.log(mediaRecorder.state);
@@ -71,9 +73,12 @@ if (navigator.getUserMedia) {
       //save.style.background = "gray";
       //stop.style.background = "";
       restart.style.display = "none";
+      restart.style.zIndex = "0";
       record.style.display = "none";
+      record.style.zIndex = "0";
       recording.style.display = "block";
       stop.style.display = "block";
+      stop.style.zIndex = "1";
 
       save.disabled = true;
       stop.disabled = false;
@@ -95,8 +100,10 @@ if (navigator.getUserMedia) {
       restart.style.display = "block";
       recording.style.display = "none";
       stop.style.display = "none";
+      stop.style.zIndex = "0";
       playing.style.display = "block";
       save.style.display = "block";
+      save.style.zIndex = "1";
 
       save.disabled = false;
       stop.disabled = true;
@@ -112,6 +119,7 @@ if (navigator.getUserMedia) {
 
       restart.style.display = "none";
       record.style.display = "block";
+      record.style.zIndex = "1";
       stop.style.display = "none";
       playing.style.display = "none";
       save.style.display = "none";
