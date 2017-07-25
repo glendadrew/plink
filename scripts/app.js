@@ -75,8 +75,8 @@ if (navigator.getUserMedia) {
       recording.style.display = "block";
       stop.style.display = "block";
 
-      stop.disabled = false;
       save.disabled = true;
+      stop.disabled = false;
       record.disabled = true;
 
       deleteLastClip();
@@ -100,7 +100,7 @@ if (navigator.getUserMedia) {
 
       save.disabled = false;
       stop.disabled = true;
-      record.disabled = false;
+      record.disabled = true;
     }
 
     restart.onclick = function() {
@@ -123,7 +123,6 @@ if (navigator.getUserMedia) {
 
 
     save.onclick = function() {
-      console.log("saving to firebase");
       // record.style.background = "";
       // stop.style.background = "gray";
       // save.style.background = "gray";
