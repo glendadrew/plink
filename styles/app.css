@@ -11,6 +11,9 @@ html, body {
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 0.8rem;
+  width:1920px;
+  height:1080px;
+  overflow:hidden;
 }
 
 .wrapper {
