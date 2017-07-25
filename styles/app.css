@@ -4,18 +4,24 @@
   box-sizing: border-box;
 }
 
+/*
 html, body {
   height: 100%;
 }
+*/
 
 body {
+  /*
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 0.8rem;
+  */
   overflow: hidden;
   width:1920px;
   height:1080px;
+  background-repeat: no-repeat;
 }
 
+/*
 .wrapper {
   height: 100%;
   display: flex;
@@ -33,13 +39,17 @@ h1, h2 {
   padding: 0.5rem 0;
 }
 
+*/
+
 canvas {
-  width: 100%;
+  position:absolute;
+  top:458px;
+  left:201px;
+  width: 600px;
   height: 60px;
   display: block;
-  margin-bottom: 0.5rem;
 }
-
+/*
 #buttons {
   display: flex;
   flex-direction: row;
@@ -49,34 +59,61 @@ canvas {
 #buttons button {
   font-size: 1rem;
   padding: 1rem;
-  /*
   width:600px;
   height:600px;
   width: calc(50% - 0.25rem);
-  */
-}
 
+}
+*/
 button {
+  position:absolute;
+  /*
   font-size: 1rem;
-  /* background: #0088cc; */
+  background: #0088cc;
   text-align: center;
   color: white;
   border: none;
   transition: all 0.2s;
   padding: 0.5rem;
+  */
 }
 
+/*
 button:hover, button:focus {
   box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
-  /* background: #0ae; */
+   background: #0ae;
 }
 
 button:active {
   box-shadow: inset 0px 0px 20px rgba(0,0,0,0.5);
   transform: translateY(2px);
 }
+*/
 
-
+.record {
+  left: 59px;
+  top: 22px;
+}
+.stop {
+  left: 509px;
+  top: 266px;
+}
+.save {
+  left: 987px;
+  top: 73px;
+}
+.restart {
+  left: 23px;
+  top: 306px;
+}
+.record {
+  left: 59px;
+  top: 22px;
+}
+.playing {
+left: 928px;
+top: 111px;
+}
 /* Make the clips use as much space as possible, and
  * also show a scrollbar when there are too many clips to show
  * in the available space */
@@ -110,7 +147,7 @@ audio {
 }
 
 button.delete {
-  background: #f00;
+  background: #f00;*/
   padding: 0.5rem 0.75rem;
   font-size: 0.8rem;
 }
@@ -139,7 +176,7 @@ aside {
   height: 100%;
   transform: translateX(100%);
   transition: 0.3s all ease-out;
-  background-color: #efefef;
+  /*background-color: #efefef;*.
   padding: 1rem;
 }
 
@@ -163,13 +200,13 @@ input[type=checkbox]:checked ~ aside {
   cursor: pointer;
 }
 
-/* Adjustments for wider screens */
+/* Adjustments for wider screens
 @media all and (min-width: 800px) {
   /* Don't take all the space as readability is lost when line length
-     goes past a certain size */
+     goes past a certain size
   .wrapper {
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
   }
-}
+}*/

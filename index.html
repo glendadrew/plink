@@ -3,19 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>PL!NK</title>
+    <title>PL!NK Recorder</title>
+      <link href="styles/install-button.css" rel="stylesheet" type="text/css">
     <link href="styles/app.css" rel="stylesheet" type="text/css">
-    <link href="styles/install-button.css" rel="stylesheet" type="text/css">
+
   </head>
   <body style="background-image: url('images/bkgd.png')">
 
-    <div class="wrapper">
+    <!--<div class="wrapper">-->
 
       <section class="main-controls">
         <canvas class="visualizer"></canvas>
         <div id="buttons">
-          <button class="record" style="background:transparent; background-image: url('images/record.png'); width:584px; height:526px"></button>
-          <button class="stop" style="background:transparent; background-image: url('images/stop.png'); width:584px; height:528px"></button>
+          <button class="record"><img src="images/record.png" width="667px" height="1042px" alt="record button"/></button>
+          <button class="stop"><img src="images/stop.png" width="490px" height="774px" alt="stop button" /></button>
+          <button class="save"><img src="images/save.png" width="905px" height="965px" alt="save button" /></button>
+          <button class="restart"><img src="images/restart.png" width="258px" height="358px" alt="restart button" /></button>
+        </div>
+        <div>
+          <img src="images/playing" width="584px" height="526px" alt="now playing" />
+        </div>
         </div>
       </section>
 
@@ -33,7 +40,7 @@
 
       </section>
 
-    </div>
+    <!--/div>-->
 
 <!--     <label for="toggle">❔</label>
     <input type="checkbox" id="toggle">
