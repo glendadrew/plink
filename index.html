@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Plink Recording</title>
 
-    <link href="styles/app.css" rel="stylesheet" type="text/css">
-    <link href="styles/install-button.css" rel="stylesheet" type="text/css">
-  </head>
-  <body style="background-image: url('images/bkgd.png')">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Plink Recording</title>
 
-    <section class="main-controls">
+  <link href="styles/app.css" rel="stylesheet" type="text/css">
+  <link href="styles/install-button.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="background-image: url('images/bkgd.png')">
+
+  <section class="main-controls" style="display:block">
     <canvas class="visualizer"></canvas>
 
     <div>
@@ -27,9 +29,9 @@
 
   </section>
 
-      <section class="sound-clips">
+  <section class="sound-clips">
 
-        <!-- This is left here as a helper for testing the style of the clips
+    <!-- This is left here as a helper for testing the style of the clips
         If you want to edit their appearance without having to record clips,
         uncomment this and reload the page. Remember to comment it again when done!
         <article class="clip">
@@ -39,11 +41,11 @@
         </article>
         -->
 
-      </section>
+  </section>
 
-    </div>
+  </div>
 
-<!--     <label for="toggle">❔</label>
+  <!--     <label for="toggle">❔</label>
     <input type="checkbox" id="toggle">
     <aside>
       <h2>Information</h2>
@@ -58,8 +60,8 @@
     </aside>
  -->
 
-    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-    <script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+  <script>
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyD-hYIApkFby9GRHEe6RVQ8gs-YKZylY44",
@@ -70,10 +72,11 @@
       messagingSenderId: "1035646158453"
     };
     firebase.initializeApp(config);
-    </script>
+  </script>
 
-    <!-- Below is your custom application script -->
-    <script src="scripts/app.js"></script>
+  <!-- Below is your custom application script -->
+  <script src="scripts/app.js"></script>
 
-  </body>
+</body>
+
 </html>
