@@ -1,3 +1,5 @@
+var firebaseRoot = 'tmp';
+
 // set up basic variables for app
 
 var record = document.querySelector('.record');
@@ -36,7 +38,7 @@ function createClip(clipName, audioURL) {
   var clipLabel = document.createElement('p');
   var audio = document.createElement('audio');
   var deleteButton = document.createElement('button');
- 
+
   clipContainer.classList.add('clip');
   audio.setAttribute('controls', '');
   //audio.setAttribute('autoplay', '');
@@ -102,8 +104,23 @@ audio.addEventListener('ended', function (e) {
   audio.play();
 }, false);
 
+audio.addEventListener('play', function (e) {
+  console.log('Audio play');
+  evtTgt = e.target;
 
-var databaseRef = firebase.database().ref("tmp");
+  console.log('currentSrc:', evtTgt.currentSrc);
+  console.log('networkState:', evtTgt.networkState);
+  console.log('readyState:', evtTgt.readyState);
+  console.log('duration:', evtTgt.duration);
+
+  var bufferedTimeRanges = evtTgt.buffered;
+  console.log('buffered:', bufferedTimeRanges, bufferedTimeRanges.start(0), bufferedTimeRanges.end(bufferedTimeRanges.length-1));
+  var seekableTimeRanges = evtTgt.seekable;
+  console.log('seekable:', seekableTimeRanges, seekableTimeRanges.start(0), seekableTimeRanges.end(bufferedTimeRanges.length-1));
+}, false);
+
+
+var databaseRef = firebase.database().ref(firebaseRoot);
 
 // saves audio metadata objects in chronological order as they are added to firebase
 var urls = [];
@@ -144,7 +161,7 @@ databaseRef.orderByKey().on("value", function(snapshot) {
   console.log("Number of db entries:", snapshot.numChildren());
   console.log("Size of urls array:", urls.length);
 
-  // reset current index to 0 so we restart at last index (most recent) next 
+  // reset current index to 0 so we restart at last index (most recent) next
   resetIndex();
 });
 
@@ -168,7 +185,7 @@ function initError() {
 }
 
 function capture(payload) {
-  if(payload.hasMotion) {    
+  if(payload.hasMotion) {
     if (!isTargetInSight) {
       console.log('Motion detected');
       isTargetInSight = true;
@@ -256,5 +273,3 @@ console.log("End of JS");
 // databaseRef.orderByChild("date").on("child_added", function(snapshot) {
 //   console.log(snapshot.key, snapshot.val().date);
 // });
-
-
