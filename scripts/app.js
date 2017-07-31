@@ -30,6 +30,7 @@ var canvas = document.querySelector('.visualizer');
 
 stop.disabled = true;
 save.disabled = true;
+canvas.style.display = "none";
 
 // grey out disabled buttons
 // stop.style.background = "gray";
