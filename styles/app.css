@@ -47,7 +47,7 @@ top: 160px;
 z-index: 1;
 width: 505px;
 height: 90px;
-display: block;
+display: none;
  transform: rotate(-7deg);
 }
 /*
@@ -93,37 +93,71 @@ transform: translateY(2px);
 }
 */
 
-.record, .recording {
+.recordImg, .recordingImg {
 left: 59px;
 top: 22px;
 }
-.recording {
+.recordingImg {
 display: none;
 }
-.stop {
+.stopImg {
 left: 509px;
 top: 266px;
 display:none;
 }
 
-.save {
+.saveImg {
 left: 987px;
 top: 73px;
 display:none;
 }
 
-.playing {
+.playingImg {
 position: absolute;
 left: 932px;
 top: 125px;
 display:none;
 }
 
-.restart {
+.restartImg {
   left: 23px;
   top: 306px;
   display:none;
 }
+
+#restart, #record, #stop, #save {
+  position:absolute;
+  z-index:1;
+}
+
+#restart{
+  left: 54px;
+  top: 336px;
+  width: 174px;
+  height: 112px;
+}
+
+#record{
+  left: 232px;
+  top: 488px;
+  width: 376px;
+  height: 297px;
+}
+
+#stop{
+  left: 578px;
+  top: 292px;
+  width: 389px;
+  height: 233px;
+}
+
+#save{
+  left: 1320px;
+  top: 309px;
+  width: 470px;
+  height: 289px;
+}
+
 /* Make the clips use as much space as possible, and
 * also show a scrollbar when there are too many clips to show
 * in the available space */

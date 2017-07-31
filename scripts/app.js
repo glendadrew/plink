@@ -10,12 +10,19 @@ navigator.getUserMedia = (navigator.getUserMedia ||
 
 // set up basic variables for app
 
-var record = document.querySelector('.record');
-var recording = document.querySelector('.recording');
-var stop = document.querySelector('.stop');
-var save = document.querySelector('.save');
-var restart = document.querySelector('.restart');
-var playing = document.querySelector('.playing');
+var record = document.getElementById('record');
+var recordImg = document.querySelector('.recordImg');
+var recordingImg = document.querySelector('.recordingImg');
+
+var stop = document.getElementById('stop');
+var stopImg = document.querySelector('.stopImg');
+
+var save = document.getElementById('save');
+var saveImg = document.querySelector('.saveImg');
+
+var restart = document.getElementById('restart');
+var restartImg = document.querySelector('.restartImg');
+var playingImg = document.querySelector('.playingImg');
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
 
@@ -67,8 +74,6 @@ if (navigator.getUserMedia) {
 
     visualize(stream);
 
-    record.style.zIndex = "1";
-
     record.onclick = function() {
       mediaRecorder.start();
       console.log(mediaRecorder.state);
@@ -77,13 +82,12 @@ if (navigator.getUserMedia) {
       //record.style.background = "red";
       //save.style.background = "gray";
       //stop.style.background = "";
-      restart.style.display = "none";
-      restart.style.zIndex = "0";
-      record.style.display = "none";
-      record.style.zIndex = "0";
-      recording.style.display = "block";
-      stop.style.display = "block";
-      stop.style.zIndex = "1";
+      restartImg.style.display = "none";
+      recordImg.style.display = "none";
+      recordingImg.style.display = "block";
+      stopImg.style.display = "block";
+
+      canvas.style.display = "block";
 
       save.disabled = true;
       stop.disabled = false;
@@ -102,13 +106,13 @@ if (navigator.getUserMedia) {
       // save.style.background = "";
       // mediaRecorder.requestData();
 
-      restart.style.display = "block";
-      recording.style.display = "none";
-      stop.style.display = "none";
-      stop.style.zIndex = "0";
-      playing.style.display = "block";
-      save.style.display = "block";
-      save.style.zIndex = "1";
+      restartImg.style.display = "block";
+      recordingImg.style.display = "none";
+      stopImg.style.display = "none";
+      playingImg.style.display = "block";
+      saveImg.style.display = "block";
+
+      canvas.style.display = "none";
 
       save.disabled = false;
       stop.disabled = true;
@@ -122,12 +126,11 @@ if (navigator.getUserMedia) {
       // save.style.background = "gray";
       // mediaRecorder.requestData();
 
-      restart.style.display = "none";
-      record.style.display = "block";
-      record.style.zIndex = "1";
-      stop.style.display = "none";
-      playing.style.display = "none";
-      save.style.display = "none";
+      restartImg.style.display = "none";
+      recordImg.style.display = "block";
+      stopImg.style.display = "none";
+      playingImg.style.display = "none";
+      saveImg.style.display = "none";
 
       save.disabled = true;
       stop.disabled = true;
@@ -141,11 +144,11 @@ if (navigator.getUserMedia) {
       // save.style.background = "gray";
       // mediaRecorder.requestData();
 
-      restart.style.display = "none";
-      record.style.display = "block";
-      stop.style.display = "none";
-      playing.style.display = "none";
-      save.style.display = "none";
+      restartImg.style.display = "none";
+      recordImg.style.display = "block";
+      stopImg.style.display = "none";
+      playingImg.style.display = "none";
+      saveImg.style.display = "none";
 
       save.disabled = true;
       stop.disabled = true;

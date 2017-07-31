@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Plink Recording</title>
+  <title>PL!NK Recording</title>
 
   <link href="styles/app.css" rel="stylesheet" type="text/css">
   <link href="styles/install-button.css" rel="stylesheet" type="text/css">
@@ -12,20 +12,37 @@
 
 <body style="background-image: url('images/bkgd.png')">
 
-  <section class="main-controls" style="display:block">
+  <section class="main-controls">
     <canvas class="visualizer"></canvas>
 
     <div>
-      <img class="playing" src="images/playing.png" width="723" height="893" alt="now playing" />
-      <span class="recording" style="background:transparent;"><img src="images/recording.png" width="667" height="1042" alt="record button" /></span>
+      <img class="playingImg" src="images/playing.png" width="723" height="893" alt="now playing" />
+      <span class="recordingImg" style="background:transparent;"><img src="images/recording.png" width="667" height="1042" alt="record button" /></span>
+    </div>
+
+    <div id="buttonImages">
+      <button class="recordImg" style="background:transparent;"><img src="images/record.png" width="667" height="1042" alt="record button" /></button>
+      <button class="stopImg"><img src="images/stop.png" width="490" height="774" alt="stop button" /></button>
+      <button class="saveImg"><img src="images/save.png" width="905" height="965" alt="save button" /></button>
+      <button class="restartImg"><img src="images/restart.png" width="258" height="358" alt="restart button" /></button>
     </div>
 
     <div id="buttons">
-      <button class="record" style="background:transparent;"><img src="images/record.png" width="667" height="1042" alt="record button" /></button>
-      <button class="stop"><img src="images/stop.png" width="490" height="774" alt="stop button" /></button>
-      <button class="save"><img src="images/save.png" width="905" height="965" alt="save button" /></button>
-      <button class="restart"><img src="images/restart.png" width="258" height="358" alt="restart button" /></button>
+      <div id="record"></div>
+      <div id="stop"></div>
+      <div id="save"></div>
+      <div id="restart"></div>
     </div>
+
+
+    <!-- image map attempt
+    <img src="images/bkgd.png"   alt="image map " width=1920 height=1080 usemap="#image-map">
+    <map name="image-map" id="image-map" style="display:none;">
+<area class="restart" alt="restart" title="restart" href="#" shape="poly" coords="276,310,26,363,175,652" style="outline:none;" target="_self"     />
+<area class="record" alt="record" title="record" href="http://www.redrocketmedia.com/glenda" shape="poly" coords="366,26,65,1055,724,686" style="outline:none;" target="_self"     />
+<area class="stop" alt="stop" title="stop" href="#" shape="poly" coords="1000,271,515,290,919,1014" style="outline:none;" target="_self"     />
+<area class="save" alt="save" title="save" href="#" shape="poly" coords="1674,1035,1889,357,994,79" style="outline:none;" target="_self"     />
+</map> -->
 
   </section>
 
