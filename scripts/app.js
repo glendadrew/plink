@@ -162,11 +162,11 @@ if (navigator.getUserMedia) {
       var sec = d.getSeconds();
       var time = `${year}-${month}-${day}-${hour}-${min}-${sec}`;
 
+      var name = time + ".webm";
       // for whatever reason blob, which is local to parent function onSuccess, is
       console.log("Uploading blob of size", blob.size, "and type", blob.type);
       let storageRef = firebase.storage().ref(firebaseRoot);
       let uploadTask = storageRef.child(name).put(blob);
-
 
       deleteLastClip();
 
@@ -175,7 +175,7 @@ if (navigator.getUserMedia) {
       // 1. 'state_changed' (firebase.storage.TaskEvent.STATE_CHANGED) observer, called any time the state changes
       // 2. Error observer, called on failure
       // 3. Completion observer, called on successful completion
-      uploadTask.on('state_changed', function(snapshot) {
+      uploadTask.on('state_changed', function(snapshot){
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -195,13 +195,14 @@ if (navigator.getUserMedia) {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
-        console.log("File uploaded: (" + uploadTask.snapshot.totalBytes, "bytes)", downloadURL);
+        console.log("File uploaded: ("+uploadTask.snapshot.totalBytes, "bytes)", downloadURL);
 
         // Store reference to Database
         let data = {
           time: time,
           downloadURL: downloadURL,
-          date: d.toISOString()
+          date: d.toISOString(),
+          name: name
         }
 
         let databaseRef = firebase.database().ref(firebaseRoot).push(data);
@@ -217,10 +218,10 @@ if (navigator.getUserMedia) {
     }
 
     function deleteLastClip() {
-      var clip = soundClips.lastElementChild; // when used lastElement then got text node of comments, even though soundClips.children.length was 0! Looks like childElementCount would be better
-      if (clip) {
-        window.URL.revokeObjectURL(clip.firstChild.src); // this should be equal to audioURL at this point, not a problem if we end up calling on a URL that is not a blob
-        soundClips.removeChild(clip); // should not throw error even if there is no last child
+      var clip = soundClips.lastElementChild;  // when used lastElement then got text node of comments, even though soundClips.children.length was 0! Looks like childElementCount would be better
+      if(clip) {
+        window.URL.revokeObjectURL(clip.firstChild.src);  // this should be equal to audioURL at this point, not a problem if we end up calling on a URL that is not a blob
+        soundClips.removeChild(clip);  // should not throw error even if there is no last child
         // we might be tempted to null blob here, but not necessary since we're reusing the blob variable
       }
     }
@@ -231,9 +232,7 @@ if (navigator.getUserMedia) {
 
       var clipName = ''; //prompt('Enter a name for your sound clip?','My unnamed clip');
       //console.log(clipName);
-      blob = new Blob(chunks, {
-        'type': 'audio/webm; codecs=opus'
-      });
+      blob = new Blob(chunks, { 'type' : 'audio/webm; codecs=opus' });
       chunks = [];
       audioURL = window.URL.createObjectURL(blob);
       createClip(clipName, audioURL).play();
@@ -253,12 +252,10 @@ if (navigator.getUserMedia) {
 
     clipContainer.classList.add('clip');
     audio.setAttribute('controls', '');
-    audio.style.display = "none";
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'delete';
-    deleteButton.style.display = "none";
 
-    if (clipName === null) {
+    if(clipName === null) {
       clipLabel.textContent = 'My unnamed clip';
     } else {
       clipLabel.textContent = clipName;
@@ -300,7 +297,7 @@ if (navigator.getUserMedia) {
     clipLabel.onclick = function() {
       var existingName = clipLabel.textContent;
       var newClipName = prompt('Enter a new name for your sound clip?');
-      if (newClipName === null) {
+      if(newClipName === null) {
         clipLabel.textContent = existingName;
       } else {
         clipLabel.textContent = newClipName;
@@ -315,7 +312,7 @@ if (navigator.getUserMedia) {
 
   navigator.getUserMedia(constraints, onSuccess, onError);
 } else {
-  console.log('getUserMedia not supported on your browser!');
+   console.log('getUserMedia not supported on your browser!');
 }
 
 function visualize(stream) {
