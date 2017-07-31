@@ -254,6 +254,7 @@ if (navigator.getUserMedia) {
     audio.setAttribute('controls', '');
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'delete';
+    deleteButton.style.display = "none";
 
     if(clipName === null) {
       clipLabel.textContent = 'My unnamed clip';
@@ -261,10 +262,10 @@ if (navigator.getUserMedia) {
       clipLabel.textContent = clipName;
     }
 
-    clipContainer.appendChild(audio);
-    clipContainer.appendChild(clipLabel);
-    clipContainer.appendChild(deleteButton);
-    soundClips.appendChild(clipContainer);
+    // clipContainer.appendChild(audio);
+    // clipContainer.appendChild(clipLabel);
+    // clipContainer.appendChild(deleteButton);
+    // soundClips.appendChild(clipContainer);
 
     audio.controls = true;
     // blob was here
