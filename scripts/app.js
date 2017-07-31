@@ -204,7 +204,7 @@ if (navigator.getUserMedia) {
           date: d.toISOString()
         }
 
-        let databaseRef = firebase.database().ref("firebaseRoot").push(data);
+        let databaseRef = firebase.database().ref(firebaseRoot).push(data);
 
         // create new clip element referencing the data on firebase
         clipName = d.toISOString();
