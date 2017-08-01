@@ -10,9 +10,14 @@ navigator.getUserMedia = (navigator.getUserMedia ||
 
 // set up basic variables for app
 
+var restart = document.getElementById('restart');
+var restartImg = document.querySelector('.restartImg');
+
 var record = document.getElementById('record');
 var recordImg = document.querySelector('.recordImg');
 var recordingImg = document.querySelector('.recordingImg');
+
+var playingImg = document.querySelector('.playingImg');
 
 var stop = document.getElementById('stop');
 var stopImg = document.querySelector('.stopImg');
@@ -20,14 +25,17 @@ var stopImg = document.querySelector('.stopImg');
 var save = document.getElementById('save');
 var saveImg = document.querySelector('.saveImg');
 
-var restart = document.getElementById('restart');
-var restartImg = document.querySelector('.restartImg');
-var playingImg = document.querySelector('.playingImg');
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
 
 // disable stop button while not recording
 
+restart.style.display = "none";
+stop.style.display = "none";
+save.style.display = "none";
+
+restart.disabled = true;
+record.disabled = false;
 stop.disabled = true;
 save.disabled = true;
 canvas.style.display = "none";
@@ -75,6 +83,33 @@ if (navigator.getUserMedia) {
 
     visualize(stream);
 
+    restart.onclick = function() {
+      console.log("restart");
+      // record.style.background = "";
+      // stop.style.background = "gray";
+      // save.style.background = "gray";
+      // mediaRecorder.requestData();
+
+      restart.style.display = "none";
+      restartImg.style.display = "none";
+
+      record.style.display = "block";
+      recordImg.style.display = "block";
+
+      stop.style.display = "none";
+      stopImg.style.display = "none";
+
+      playingImg.style.display = "none";
+
+      save.style.display = "none";
+      saveImg.style.display = "none";
+
+      restart.disabled = true;
+      record.disabled = false;
+      stop.disabled = true;
+      save.disabled = true;
+    }
+
     record.onclick = function() {
       mediaRecorder.start();
       console.log(mediaRecorder.state);
@@ -83,16 +118,26 @@ if (navigator.getUserMedia) {
       //record.style.background = "red";
       //save.style.background = "gray";
       //stop.style.background = "";
+      restart.style.display = "none";
       restartImg.style.display = "none";
+
+      record.style.display = "none";
       recordImg.style.display = "none";
+
       recordingImg.style.display = "block";
+
+      stop.style.display = "block";
       stopImg.style.display = "block";
+
+      save.style.display = "none";
+      saveImg.style.display = "none";
 
       canvas.style.display = "block";
 
-      save.disabled = true;
-      stop.disabled = false;
+      restart.disabled = true;
       record.disabled = true;
+      stop.disabled = false;
+      save.disabled = true;
 
       deleteLastClip();
     }
@@ -107,37 +152,30 @@ if (navigator.getUserMedia) {
       // save.style.background = "";
       // mediaRecorder.requestData();
 
+      restart.style.display = "block";
       restartImg.style.display = "block";
+
+      record.style.display = "none";
+      recordImg.style.display = "none";
+
       recordingImg.style.display = "none";
+
+      stop.style.display = "none";
       stopImg.style.display = "none";
+
       playingImg.style.display = "block";
+
+      save.style.display = "block";
       saveImg.style.display = "block";
 
       canvas.style.display = "none";
 
-      save.disabled = false;
-      stop.disabled = true;
+      restart.disabled = false;
       record.disabled = true;
-    }
-
-    restart.onclick = function() {
-      console.log("restart");
-      // record.style.background = "";
-      // stop.style.background = "gray";
-      // save.style.background = "gray";
-      // mediaRecorder.requestData();
-
-      restartImg.style.display = "none";
-      recordImg.style.display = "block";
-      stopImg.style.display = "none";
-      playingImg.style.display = "none";
-      saveImg.style.display = "none";
-
-      save.disabled = true;
       stop.disabled = true;
-      record.disabled = false;
-    }
+      save.disabled = false;
 
+    }
 
     save.onclick = function() {
       // record.style.background = "";
@@ -145,15 +183,24 @@ if (navigator.getUserMedia) {
       // save.style.background = "gray";
       // mediaRecorder.requestData();
 
+      restart.style.display = "none";
       restartImg.style.display = "none";
+
+      record.style.display = "block";
       recordImg.style.display = "block";
+
+      stop.style.display = "none";
       stopImg.style.display = "none";
+
       playingImg.style.display = "none";
+
+      save.style.display = "none";
       saveImg.style.display = "none";
 
-      save.disabled = true;
-      stop.disabled = true;
+      restart.disabled = true;
       record.disabled = false;
+      stop.disabled = true;
+      save.disabled = true;
 
       // Save to Firebase
       console.log("Saving to Firebase");
@@ -179,7 +226,7 @@ if (navigator.getUserMedia) {
       // 1. 'state_changed' (firebase.storage.TaskEvent.STATE_CHANGED) observer, called any time the state changes
       // 2. Error observer, called on failure
       // 3. Completion observer, called on successful completion
-      uploadTask.on('state_changed', function(snapshot){
+      uploadTask.on('state_changed', function(snapshot) {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -199,7 +246,7 @@ if (navigator.getUserMedia) {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
-        console.log("File uploaded: ("+uploadTask.snapshot.totalBytes, "bytes)", downloadURL);
+        console.log("File uploaded: (" + uploadTask.snapshot.totalBytes, "bytes)", downloadURL);
 
         // Store reference to Database
         let data = {
@@ -222,10 +269,10 @@ if (navigator.getUserMedia) {
     }
 
     function deleteLastClip() {
-      var clip = soundClips.lastElementChild;  // when used lastElement then got text node of comments, even though soundClips.children.length was 0! Looks like childElementCount would be better
-      if(clip) {
-        window.URL.revokeObjectURL(clip.firstChild.src);  // this should be equal to audioURL at this point, not a problem if we end up calling on a URL that is not a blob
-        soundClips.removeChild(clip);  // should not throw error even if there is no last child
+      var clip = soundClips.lastElementChild; // when used lastElement then got text node of comments, even though soundClips.children.length was 0! Looks like childElementCount would be better
+      if (clip) {
+        window.URL.revokeObjectURL(clip.firstChild.src); // this should be equal to audioURL at this point, not a problem if we end up calling on a URL that is not a blob
+        soundClips.removeChild(clip); // should not throw error even if there is no last child
         // we might be tempted to null blob here, but not necessary since we're reusing the blob variable
       }
     }
@@ -236,7 +283,9 @@ if (navigator.getUserMedia) {
 
       var clipName = ''; //prompt('Enter a name for your sound clip?','My unnamed clip');
       //console.log(clipName);
-      blob = new Blob(chunks, { 'type' : 'audio/webm; codecs=opus' });
+      blob = new Blob(chunks, {
+        'type': 'audio/webm; codecs=opus'
+      });
       chunks = [];
       audioURL = window.URL.createObjectURL(blob);
       createClip(clipName, audioURL).play();
@@ -260,7 +309,7 @@ if (navigator.getUserMedia) {
     deleteButton.className = 'delete';
     deleteButton.style.display = "none";
 
-    if(clipName === null) {
+    if (clipName === null) {
       clipLabel.textContent = 'My unnamed clip';
     } else {
       clipLabel.textContent = clipName;
@@ -302,7 +351,7 @@ if (navigator.getUserMedia) {
     clipLabel.onclick = function() {
       var existingName = clipLabel.textContent;
       var newClipName = prompt('Enter a new name for your sound clip?');
-      if(newClipName === null) {
+      if (newClipName === null) {
         clipLabel.textContent = existingName;
       } else {
         clipLabel.textContent = newClipName;
@@ -317,7 +366,7 @@ if (navigator.getUserMedia) {
 
   navigator.getUserMedia(constraints, onSuccess, onError);
 } else {
-   console.log('getUserMedia not supported on your browser!');
+  console.log('getUserMedia not supported on your browser!');
 }
 
 function visualize(stream) {
@@ -342,11 +391,11 @@ function visualize(stream) {
 
     analyser.getByteTimeDomainData(dataArray);
 
-    canvasCtx.fillStyle = 'rgba(12, 12, 12, .1)';
+    canvasCtx.fillStyle = 'rgba(255, 255, 255, .2)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = 'rgb(255, 255, 255)';
+    canvasCtx.strokeStyle = 'rgb(212, 239, 15)';
 
     canvasCtx.beginPath();
 
