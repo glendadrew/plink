@@ -28,6 +28,8 @@ var saveImg = document.querySelector('.saveImg');
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
 
+var audio;
+
 // disable stop button while not recording
 
 restart.style.display = "none";
@@ -92,6 +94,9 @@ if (navigator.getUserMedia) {
       // stop.style.background = "gray";
       // save.style.background = "gray";
       // mediaRecorder.requestData();
+
+      //stop playing audio
+      audio.pause();
 
       restart.style.display = "none";
       restartImg.style.display = "none";
@@ -312,7 +317,7 @@ if (navigator.getUserMedia) {
     // clipName was here
     var clipContainer = document.createElement('article');
     var clipLabel = document.createElement('p');
-    var audio = document.createElement('audio');
+    audio = document.createElement('audio');
     var deleteButton = document.createElement('button');
 
     clipContainer.classList.add('clip');
