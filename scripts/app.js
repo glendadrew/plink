@@ -114,6 +114,7 @@ if (navigator.getUserMedia) {
     }
 
     record.onclick = function() {
+      console.log('record clicked');
       mediaRecorder.start();
       console.log(mediaRecorder.state);
       console.log(mediaRecorder.mimeType);
