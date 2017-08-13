@@ -1,3 +1,5 @@
+var firebaseRoot = 'tmp';
+
 // fork getUserMedia for multiple browser versions, for the future
 // when more browsers support MediaRecorder
 
@@ -7,25 +9,24 @@ navigator.getUserMedia = (navigator.getUserMedia ||
   navigator.msGetUserMedia);
 
 // set up basic variables for app
-var firebaseRoot = 'tmp';
 
 var restart = document.getElementById('restart');
-var restartImg = document.getElementById('restartImg');
+var restartImg = document.querySelector('.restartImg');
 
 var record = document.getElementById('record');
-var recordImg = document.getElementById('recordImg');
-var recordingImg = document.getElementById('recordingImg');
+var recordImg = document.querySelector('.recordImg');
+var recordingImg = document.querySelector('.recordingImg');
 
-var playingImg = document.getElementById('playingImg');
+var playingImg = document.querySelector('.playingImg');
 
 var stop = document.getElementById('stop');
-var stopImg = document.getElementById('stopImg');
+var stopImg = document.querySelector('.stopImg');
 
 var save = document.getElementById('save');
-var saveImg = document.getElementById('saveImg');
+var saveImg = document.querySelector('.saveImg');
 
-var soundClips = document.querySelector('sound-clips');
-var canvas = document.getElementById('visualizer');
+var soundClips = document.querySelector('.sound-clips');
+var canvas = document.querySelector('.visualizer');
 
 var audio;
 

@@ -101,35 +101,35 @@ transform: translateY(2px);
 }
 */
 
-#recordImg, #recordingImg {
+.recordImg, .recordingImg {
   left: 59px;
   top: 22px;
 }
 
-#recordingImg {
+.recordingImg {
   display: none;
 }
 
-#stopImg {
+.stopImg {
   left: 509px;
   top: 266px;
   display: none;
 }
 
-#saveImg {
+.saveImg {
   left: 987px;
   top: 73px;
   display: none;
 }
 
-#playingImg {
+.playingImg {
   position: absolute;
   left: 932px;
   top: 125px;
   display: none;
 }
 
-#restartImg {
+.restartImg {
   left: 23px;
   top: 306px;
   display: none;
