@@ -1,5 +1,3 @@
-var firebaseRoot = 'tmp';
-
 // fork getUserMedia for multiple browser versions, for the future
 // when more browsers support MediaRecorder
 
@@ -9,26 +7,32 @@ navigator.getUserMedia = (navigator.getUserMedia ||
   navigator.msGetUserMedia);
 
 // set up basic variables for app
+var firebaseRoot = 'tmp';
 
 var restart = document.getElementById('restart');
-var restartImg = document.querySelector('.restartImg');
+var restartImg = document.getElementById('restartImg');
 
 var record = document.getElementById('record');
-var recordImg = document.querySelector('.recordImg');
-var recordingImg = document.querySelector('.recordingImg');
+var recordImg = document.getElementById('recordImg');
+var recordingImg = document.getElementById('recordingImg');
 
-var playingImg = document.querySelector('.playingImg');
+var playingImg = document.getElementById('playingImg');
 
 var stop = document.getElementById('stop');
-var stopImg = document.querySelector('.stopImg');
+var stopImg = document.getElementById('stopImg');
 
 var save = document.getElementById('save');
-var saveImg = document.querySelector('.saveImg');
+var saveImg = document.getElementById('saveImg');
 
-var soundClips = document.querySelector('.sound-clips');
-var canvas = document.querySelector('.visualizer');
+var soundClips = document.querySelector('sound-clips');
+var canvas = document.getElementById('visualizer');
 
 var audio;
+
+// visualiser setup - create web audio api context and canvas
+
+var audioCtx = new(window.AudioContext || webkitAudioContext)();
+var canvasCtx = canvas.getContext("2d");
 
 // disable stop button while not recording
 
@@ -46,10 +50,6 @@ canvas.style.display = "none";
 // stop.style.background = "gray";
 // save.style.background = "gray";
 
-// visualiser setup - create web audio api context and canvas
-
-var audioCtx = new(window.AudioContext || webkitAudioContext)();
-var canvasCtx = canvas.getContext("2d");
 
 //main block for doing the audio recording
 
@@ -83,10 +83,10 @@ if (navigator.getUserMedia) {
     var blob;
     var audioURL;
 
-    var recordTimeout;
+    var recordTimeout = null;
     var TimeOut = 180000;
 
-    visualize(stream);
+    // visualize(stream);
 
     restart.onclick = function() {
       console.log("restart");
@@ -120,10 +120,10 @@ if (navigator.getUserMedia) {
 
     record.onclick = function() {
       console.log('record clicked');
+      visualize(stream);
       mediaRecorder.start();
       console.log(mediaRecorder.state);
       console.log(mediaRecorder.mimeType);
-      console.log("recorder started");
       //record.style.background = "red";
       //save.style.background = "gray";
       //stop.style.background = "";
@@ -157,9 +157,14 @@ if (navigator.getUserMedia) {
     }
 
     stop.onclick = function() {
+      // Clear the timelimit timeout
+      clearTimeout(recordTimeout);
+      recordTimeout = null;
+
+      console.log("stop clicked");
       mediaRecorder.stop();
       console.log(mediaRecorder.state);
-      console.log("recorder stopped");
+
       // record.style.background = "";
       // record.style.color = "";
       // stop.style.background = "gray";
@@ -189,12 +194,10 @@ if (navigator.getUserMedia) {
       stop.disabled = true;
       save.disabled = false;
 
-      // Clear the timelimit timeout
-      clearTimeout(recordTimeout);
-
     }
 
     save.onclick = function() {
+      console.log('save clicked');
       // record.style.background = "";
       // stop.style.background = "gray";
       // save.style.background = "gray";
@@ -341,7 +344,7 @@ if (navigator.getUserMedia) {
     // blob was here
     // audioURL was here
     audio.src = audioURL;
-    console.log("recorder stopped");
+    // console.log("recorder stopped");
 
     deleteButton.onclick = function(e) {
       evtTgt = e.target;
@@ -397,10 +400,10 @@ function visualize(stream) {
   source.connect(analyser);
   //analyser.connect(audioCtx.destination);
 
-  WIDTH = canvas.width
+  WIDTH = canvas.width;
   HEIGHT = canvas.height;
 
-  draw()
+  draw();
 
   function draw() {
 
