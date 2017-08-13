@@ -32,6 +32,8 @@ var audio;
 
 // disable stop button while not recording
 
+// inits
+
 restart.style.display = "none";
 stop.style.display = "none";
 save.style.display = "none";
@@ -86,10 +88,14 @@ if (navigator.getUserMedia) {
     var recordTimeout;
     var TimeOut = 180000;
 
-    visualize(stream);
+    // visualize(stream);
+
+    // doesn't work...trying to call a the restart on init
+    // console.log('about to call restart.click');
+    // restart.click();
 
     restart.onclick = function() {
-      console.log("restart");
+      console.log("restart clicked");
       // record.style.background = "";
       // stop.style.background = "gray";
       // save.style.background = "gray";
@@ -121,9 +127,11 @@ if (navigator.getUserMedia) {
     record.onclick = function() {
       console.log('record clicked');
       mediaRecorder.start();
-      console.log(mediaRecorder.state);
-      console.log(mediaRecorder.mimeType);
-      console.log("recorder started");
+      console.log('mediaRecorder.state:' + mediaRecorder.state);
+      console.log('mediaRecorder.mimeType:' + mediaRecorder.mimeType);
+
+      visualize(stream);
+
       //record.style.background = "red";
       //save.style.background = "gray";
       //stop.style.background = "";
@@ -157,9 +165,10 @@ if (navigator.getUserMedia) {
     }
 
     stop.onclick = function() {
+      console.log("stop clicked");
       mediaRecorder.stop();
-      console.log(mediaRecorder.state);
-      console.log("recorder stopped");
+      console.log('mediaRecorder.state:' + mediaRecorder.state);
+
       // record.style.background = "";
       // record.style.color = "";
       // stop.style.background = "gray";
@@ -195,6 +204,7 @@ if (navigator.getUserMedia) {
     }
 
     save.onclick = function() {
+      console.log('save clicked');
       // record.style.background = "";
       // stop.style.background = "gray";
       // save.style.background = "gray";
@@ -341,7 +351,7 @@ if (navigator.getUserMedia) {
     // blob was here
     // audioURL was here
     audio.src = audioURL;
-    console.log("recorder stopped");
+    // console.log("recorder stopped");
 
     deleteButton.onclick = function(e) {
       evtTgt = e.target;
