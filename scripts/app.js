@@ -86,7 +86,7 @@ if (navigator.getUserMedia) {
     var audioURL;
 
     var recordTimeout;
-    var TimeOut = 180000;
+    var TimeoutR = 180000;
 
     // visualize(stream);
 
@@ -161,7 +161,7 @@ if (navigator.getUserMedia) {
       // Set timeout to enforce recording time limit by simulating click on stop button
       recordTimeout = setTimeout(function() {
         stop.click()
-      }, TimeOut);
+      }, TimeoutR);
     }
 
     stop.onclick = function() {
@@ -200,6 +200,7 @@ if (navigator.getUserMedia) {
 
       // Clear the timelimit timeout
       clearTimeout(recordTimeout);
+      recordTimeout = null;
 
     }
 
