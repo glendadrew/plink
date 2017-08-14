@@ -110,7 +110,7 @@ audio.addEventListener('play', function (e) {
   console.log('currentSrc:', evtTgt.currentSrc);
   console.log('networkState:', evtTgt.networkState);
   console.log('readyState:', evtTgt.readyState);
-  console.log('duration:', evtTgt.duration);
+  // console.log('duration:', evtTgt.duration);
 
   var bufferedTimeRanges = evtTgt.buffered;
   if(bufferedTimeRanges.length > 0) {
