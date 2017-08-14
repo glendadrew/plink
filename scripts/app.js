@@ -124,6 +124,8 @@ if (navigator.getUserMedia) {
 
       save.style.display = "none";
       saveImg.style.display = "none";
+      saveImage.setAttribute('src', 'images/save.png');
+
 
       restart.disabled = true;
       record.disabled = false;
