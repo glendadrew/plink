@@ -57,6 +57,12 @@ canvas.style.display = "none";
 var audioCtx = new(window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext("2d");
 
+// disable dragging to avoid weird highlighting
+document.onselectstart = function( e ) {
+    e.preventDefault();
+    return false;
+};
+
 //main block for doing the audio recording
 
 if (navigator.getUserMedia) {
