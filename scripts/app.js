@@ -93,7 +93,7 @@ if (navigator.getUserMedia) {
     var TimerRecord = 180000;
 
     var thxTimeout;
-    var TimerThx = 180000;
+    var TimerThx = 5000;
 
     // visualize(stream);
 
@@ -136,6 +136,10 @@ if (navigator.getUserMedia) {
       clearTimeout(restartTimeout);
       restartTimeout = null;
       console.log('restartTimeout: ' + restartTimeout);
+
+      clearTimeout(thxTimeout);
+      thxTimeout = null;
+      console.log('thxTimeout: ' + thxTimeout);
     }
 
     record.onclick = function() {
@@ -237,8 +241,8 @@ if (navigator.getUserMedia) {
       restart.style.display = "none";
       restartImg.style.display = "none";
 
-      record.style.display = "block";
-      recordImg.style.display = "block";
+      record.style.display = "none";
+      recordImg.style.display = "none";
 
       stop.style.display = "none";
       stopImg.style.display = "none";
@@ -246,7 +250,6 @@ if (navigator.getUserMedia) {
       playingImg.style.display = "none";
 
       saveImage.setAttribute('src', 'images/saved.png');
-
       // save.style.display = "none";
       // saveImg.style.display = "none";
 
@@ -254,6 +257,10 @@ if (navigator.getUserMedia) {
       record.disabled = false;
       stop.disabled = true;
       save.disabled = true;
+
+      thxTimeout = setTimeout(function() {
+        restart.click()
+      }, TimerThx);
 
       // Save to Firebase
       console.log("Saving to Firebase");
