@@ -104,6 +104,7 @@ transform: translateY(2px);
 .recordImg, .recordingImg {
   left: 59px;
   top: 22px;
+  outline: none;
 }
 
 .recordingImg {
