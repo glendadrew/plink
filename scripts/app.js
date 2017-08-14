@@ -24,11 +24,15 @@ var stopImg = document.querySelector('.stopImg');
 
 var save = document.getElementById('save');
 var saveImg = document.querySelector('.saveImg');
+var saveImage = document.getElementById('saveImage');
 
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
 
 var audio;
+
+var restartTimeout;
+var TimerRestart = 15000;
 
 // disable stop button while not recording
 
@@ -86,7 +90,10 @@ if (navigator.getUserMedia) {
     var audioURL;
 
     var recordTimeout;
-    var TimeoutR = 180000;
+    var TimerRecord = 180000;
+
+    var thxTimeout;
+    var TimerThx = 180000;
 
     // visualize(stream);
 
@@ -122,6 +129,11 @@ if (navigator.getUserMedia) {
       record.disabled = false;
       stop.disabled = true;
       save.disabled = true;
+
+      // Clear the timelimit timeout
+      clearTimeout(restartTimeout);
+      restartTimeout = null;
+      console.log('restartTimeout: ' + restartTimeout);
     }
 
     record.onclick = function() {
@@ -161,7 +173,7 @@ if (navigator.getUserMedia) {
       // Set timeout to enforce recording time limit by simulating click on stop button
       recordTimeout = setTimeout(function() {
         stop.click()
-      }, TimeoutR);
+      }, TimerRecord);
     }
 
     stop.onclick = function() {
@@ -201,7 +213,14 @@ if (navigator.getUserMedia) {
       // Clear the timelimit timeout
       clearTimeout(recordTimeout);
       recordTimeout = null;
+      console.log('recordTimeout: ' + recordTimeout);
 
+      // Set timeout to enforce recording time limit by simulating click on stop button
+      // audio.ended = (function() {
+      //   restartTimeout = setTimeout(function() {
+      //     restart.click()
+      //   }, TimerRestart);
+      // });
     }
 
     save.onclick = function() {
@@ -210,6 +229,8 @@ if (navigator.getUserMedia) {
       // stop.style.background = "gray";
       // save.style.background = "gray";
       // mediaRecorder.requestData();
+
+
 
       restart.style.display = "none";
       restartImg.style.display = "none";
@@ -222,8 +243,10 @@ if (navigator.getUserMedia) {
 
       playingImg.style.display = "none";
 
-      save.style.display = "none";
-      saveImg.style.display = "none";
+      saveImage.setAttribute('src', 'images/saved.png');
+
+      // save.style.display = "none";
+      // saveImg.style.display = "none";
 
       restart.disabled = true;
       record.disabled = false;
@@ -333,6 +356,14 @@ if (navigator.getUserMedia) {
 
     clipContainer.classList.add('clip');
     audio.setAttribute('controls', '');
+
+    audio.onended = (function() {
+      console.log('audio ended');
+      restartTimeout = setTimeout(function() {
+        restart.click()
+      }, TimerRestart);
+    });
+
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'delete';
     deleteButton.style.display = "none";
