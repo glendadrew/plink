@@ -34,6 +34,9 @@ var audio;
 var restartTimeout;
 var TimerRestart = 15000;
 
+var recordInterval;
+var rt = 0;
+
 // disable stop button while not recording
 
 // inits
@@ -124,7 +127,7 @@ if (navigator.getUserMedia) {
       restartImg.style.opacity = "0";
 
       record.style.display = "block";
-      recordingImg.style.transitionDelay = '.3s';
+      recordingImg.style.transitionDelay = '0s';
       recordImg.style.opacity = "1";
       //console.log('recordImg.style.opacity: ' + recordImg.style.opacity);
 
@@ -180,9 +183,8 @@ if (navigator.getUserMedia) {
 
       save.style.display = "none";
       saveImg.style.opacity = "0";
-      saveImage.setAttribute('src', 'images/save.png');
 
-      canvas.style.transitionDelay = '.5s';
+      canvas.style.transitionDelay = '.8s';
       canvas.style.opacity = "1";
 
       restart.disabled = true;
@@ -196,8 +198,13 @@ if (navigator.getUserMedia) {
       recordTimeout = setTimeout(function() {
         stop.click()
       }, TimerRecord);
-    }
 
+      recordInterval = setInterval(updateWidth, 10);
+
+      function updateWidth() {
+        rt++;
+      }
+    }
     stop.onclick = function() {
       console.log("stop clicked");
       mediaRecorder.stop();
@@ -220,16 +227,17 @@ if (navigator.getUserMedia) {
       recordingImg.style.opacity = "0";
 
       stop.style.display = "none";
-      stopImg.style.transitionDelay = '.5s';
+      stopImg.style.transitionDelay = '0s';
       stopImg.style.opacity = "0";
 
-      playingImg.style.transitionDelay = '1s';
+      playingImg.style.transitionDelay = '.5s';
       playingImg.style.opacity = "1";
 
       save.style.display = "block";
-      saveImg.style.transitionDelay = '1.5s';
+      saveImg.style.transitionDelay = '1s';
       saveImg.style.opacity = "1";
 
+      canvas.style.transitionDelay = '0s';
       canvas.style.opacity = "0";
 
       restart.disabled = false;
@@ -241,6 +249,10 @@ if (navigator.getUserMedia) {
       clearTimeout(recordTimeout);
       recordTimeout = null;
       console.log('recordTimeout: ' + recordTimeout);
+
+      clearInterval(recordInterval);
+      recordInterval = null;
+      rt = 0;
 
       // Set timeout to enforce recording time limit by simulating click on stop button
       // audio.ended = (function() {
@@ -261,6 +273,7 @@ if (navigator.getUserMedia) {
       restartImg.style.opacity = "1";
 
       record.style.display = "none";
+      recordImg.style.transitionDelay = '0s';
       recordImg.style.opacity = "0";
 
       stop.style.display = "none";
@@ -272,7 +285,7 @@ if (navigator.getUserMedia) {
       save.style.display = "none";
       saveImg.style.transitionDelay = '0s';
       saveImg.style.opacity = "0";
-      savedImg.style.transitionDelay = '0s';
+      savedImg.style.transitionDelay = '.5s';
       savedImg.style.opacity = "1";
 
       restart.disabled = true;
@@ -460,6 +473,7 @@ if (navigator.getUserMedia) {
 }
 
 function visualize(stream) {
+  console.log('visualize stream');
   var source = audioCtx.createMediaStreamSource(stream);
 
   var analyser = audioCtx.createAnalyser();
@@ -470,18 +484,47 @@ function visualize(stream) {
   source.connect(analyser);
   //analyser.connect(audioCtx.destination);
 
-  WIDTH = canvas.width
+
   HEIGHT = canvas.height;
 
   draw()
 
   function draw() {
-
     requestAnimationFrame(draw);
+
+    console.log('rt: ' + rt);
+
+    WIDTH = (rt / (45.3)); // 397 divided by 180000 * 100
+
+    console.log('WIDTH: ' + WIDTH);
+
+    // recordInterval = setInterval(updateWidth, 1);
+    //
+    // function updateWidth() {
+    //   console.log('rt: ' + rt);
+
+    //   if (rt > 1000) {
+    //     cancelAnimationFrame(draw);
+    //     clearInterval(recordInterval);
+    //     recordInterval = null;
+    //     rt = 0;
+    //   } else {
+    //     WIDTH = (rt / 397) * 4.;
+    //     rt++;
+    //     // from original code
+    //     requestAnimationFrame(draw);
+    //   }
+    //  }
 
     analyser.getByteTimeDomainData(dataArray);
 
-    canvasCtx.fillStyle = 'rgba(255, 255, 255, .2)';
+    if (rt > 0) {
+      canvasCtx.fillStyle = 'rgba(20, 204, 247, 1)';
+    } else {
+      // resets canvas bkgd to white
+      canvasCtx.fillStyle = 'rgba(255, 255, 255, 1)';
+      canvasCtx.fillRect(0, 0, 397, HEIGHT);
+    }
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
     canvasCtx.lineWidth = 2;
