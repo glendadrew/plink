@@ -24,7 +24,7 @@ var stopImg = document.querySelector('.stopImg');
 
 var save = document.getElementById('save');
 var saveImg = document.querySelector('.saveImg');
-var saveImage = document.getElementById('saveImage');
+var savedImg = document.querySelector('.savedImg');
 
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
@@ -46,7 +46,9 @@ restart.disabled = true;
 record.disabled = false;
 stop.disabled = true;
 save.disabled = true;
-canvas.style.display = "none";
+
+// canvas.style.display = "none";
+recordImg.style.opacity = "1";
 
 // grey out disabled buttons
 // stop.style.background = "gray";
@@ -57,10 +59,10 @@ canvas.style.display = "none";
 var audioCtx = new(window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext("2d");
 
-// disable dragging to avoid weird highlighting
-document.onselectstart = function( e ) {
-    e.preventDefault();
-    return false;
+// disable dragging to avoid weird highlighting (only a problem in Chrome)
+document.onselectstart = function(e) {
+  e.preventDefault();
+  return false;
 };
 
 //main block for doing the audio recording
@@ -103,7 +105,7 @@ if (navigator.getUserMedia) {
 
     // visualize(stream);
 
-    // doesn't work...trying to call a the restart on init
+    // doesn't work...trying to call a the restart on init...ask Spencer
     // console.log('about to call restart.click');
     // restart.click();
 
@@ -118,20 +120,26 @@ if (navigator.getUserMedia) {
       audio.pause();
 
       restart.style.display = "none";
-      restartImg.style.display = "none";
+      restartImg.style.transitionDelay = '0s';
+      restartImg.style.opacity = "0";
 
       record.style.display = "block";
-      recordImg.style.display = "block";
+      recordingImg.style.transitionDelay = '.3s';
+      recordImg.style.opacity = "1";
+      //console.log('recordImg.style.opacity: ' + recordImg.style.opacity);
 
       stop.style.display = "none";
-      stopImg.style.display = "none";
+      stopImg.style.transitionDelay = '0s';
+      stopImg.style.opacity = "0";
 
-      playingImg.style.display = "none";
+      playingImg.style.transitionDelay = '0s';
+      playingImg.style.opacity = "0";
 
       save.style.display = "none";
-      saveImg.style.display = "none";
-      saveImage.setAttribute('src', 'images/save.png');
-
+      saveImg.style.transitionDelay = '0s';
+      saveImg.style.opacity = "0";
+      savedImg.style.transitionDelay = '0s';
+      savedImg.style.opacity = "0";
 
       restart.disabled = true;
       record.disabled = false;
@@ -160,20 +168,22 @@ if (navigator.getUserMedia) {
       //save.style.background = "gray";
       //stop.style.background = "";
       restart.style.display = "none";
-      restartImg.style.display = "none";
+      restartImg.style.opacity = "0";
 
       record.style.display = "none";
-      recordImg.style.display = "none";
-
-      recordingImg.style.display = "block";
+      recordImg.style.opacity = "0";
+      recordingImg.style.opacity = "1";
 
       stop.style.display = "block";
-      stopImg.style.display = "block";
+      stopImg.style.transitionDelay = '.5s';
+      stopImg.style.opacity = "1";
 
       save.style.display = "none";
-      saveImg.style.display = "none";
+      saveImg.style.opacity = "0";
+      saveImage.setAttribute('src', 'images/save.png');
 
-      canvas.style.display = "block";
+      canvas.style.transitionDelay = '.5s';
+      canvas.style.opacity = "1";
 
       restart.disabled = true;
       record.disabled = true;
@@ -200,22 +210,27 @@ if (navigator.getUserMedia) {
       // mediaRecorder.requestData();
 
       restart.style.display = "block";
-      restartImg.style.display = "block";
+      restartImg.style.transitionDelay = '1.8s';
+      restartImg.style.opacity = "1";
 
       record.style.display = "none";
-      recordImg.style.display = "none";
 
-      recordingImg.style.display = "none";
+      recordImg.style.opacity = "0";
+      recordingImg.style.transitionDelay = '0s';
+      recordingImg.style.opacity = "0";
 
       stop.style.display = "none";
-      stopImg.style.display = "none";
+      stopImg.style.transitionDelay = '.5s';
+      stopImg.style.opacity = "0";
 
-      playingImg.style.display = "block";
+      playingImg.style.transitionDelay = '1s';
+      playingImg.style.opacity = "1";
 
       save.style.display = "block";
-      saveImg.style.display = "block";
+      saveImg.style.transitionDelay = '1.5s';
+      saveImg.style.opacity = "1";
 
-      canvas.style.display = "none";
+      canvas.style.opacity = "0";
 
       restart.disabled = false;
       record.disabled = true;
@@ -242,22 +257,23 @@ if (navigator.getUserMedia) {
       // save.style.background = "gray";
       // mediaRecorder.requestData();
 
-
-
-      restart.style.display = "none";
-      restartImg.style.display = "none";
+      restart.style.display = "block";
+      restartImg.style.opacity = "1";
 
       record.style.display = "none";
-      recordImg.style.display = "none";
+      recordImg.style.opacity = "0";
 
       stop.style.display = "none";
-      stopImg.style.display = "none";
+      stopImg.style.opacity = "0";
 
-      playingImg.style.display = "none";
+      playingImg.style.transitionDelay = '0s';
+      playingImg.style.opacity = "0";
 
-      saveImage.setAttribute('src', 'images/saved.png');
-      // save.style.display = "none";
-      // saveImg.style.display = "none";
+      save.style.display = "none";
+      saveImg.style.transitionDelay = '0s';
+      saveImg.style.opacity = "0";
+      savedImg.style.transitionDelay = '0s';
+      savedImg.style.opacity = "1";
 
       restart.disabled = true;
       record.disabled = false;

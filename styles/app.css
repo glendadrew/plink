@@ -51,8 +51,9 @@ canvas {
   z-index: 2;
   width: 397px;
   height: 90px;
-  display: none;
   transform: rotate(-17deg);
+  opacity: 0;
+  transition: all .1s;
 }
 
 
@@ -101,38 +102,35 @@ transform: translateY(2px);
 }
 */
 
+.recordImg, .recordingImg, .stopImg, .saveImg, .savedImg, .playingImg, .restartImg {
+  opacity: 0;
+  transition: all .8s;
+}
+
 .recordImg, .recordingImg {
   left: 59px;
   top: 22px;
 }
 
-.recordingImg {
-  display: none;
-}
-
 .stopImg {
   left: 509px;
   top: 266px;
-  display: none;
 }
 
-.saveImg {
+.saveImg, .savedImg {
   left: 987px;
   top: 73px;
-  display: none;
 }
 
 .playingImg {
   position: absolute;
   left: 932px;
   top: 125px;
-  display: none;
 }
 
 .restartImg {
   left: 23px;
   top: 306px;
-  display: none;
 }
 
 #restart, #record, #stop, #save {
@@ -142,7 +140,7 @@ transform: translateY(2px);
 }
 
 #restart:hover, #record:hover, #stop:hover, #save:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 #restart {
