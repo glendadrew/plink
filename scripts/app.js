@@ -113,7 +113,7 @@ if (navigator.getUserMedia) {
     // restart.click();
 
     restart.onclick = function() {
-      console.log("restart clicked");
+      // console.log("restart clicked");
       // record.style.background = "";
       // stop.style.background = "gray";
       // save.style.background = "gray";
@@ -152,15 +152,19 @@ if (navigator.getUserMedia) {
       // Clear the timelimit timeout
       clearTimeout(restartTimeout);
       restartTimeout = null;
-      console.log('restartTimeout: ' + restartTimeout);
+      // console.log('restartTimeout: ' + restartTimeout);
 
       clearTimeout(thxTimeout);
       thxTimeout = null;
-      console.log('thxTimeout: ' + thxTimeout);
+      // console.log('thxTimeout: ' + thxTimeout);
+
+      clearInterval(recordInterval);
+      recordInterval = null;
+      rt = 0;
     }
 
     record.onclick = function() {
-      console.log('record clicked');
+      // console.log('record clicked');
       mediaRecorder.start();
       console.log('mediaRecorder.state:' + mediaRecorder.state);
       console.log('mediaRecorder.mimeType:' + mediaRecorder.mimeType);
@@ -206,7 +210,7 @@ if (navigator.getUserMedia) {
       }
     }
     stop.onclick = function() {
-      console.log("stop clicked");
+      // console.log("stop clicked");
       mediaRecorder.stop();
       console.log('mediaRecorder.state:' + mediaRecorder.state);
 
@@ -248,7 +252,7 @@ if (navigator.getUserMedia) {
       // Clear the timelimit timeout
       clearTimeout(recordTimeout);
       recordTimeout = null;
-      console.log('recordTimeout: ' + recordTimeout);
+      // console.log('recordTimeout: ' + recordTimeout);
 
       clearInterval(recordInterval);
       recordInterval = null;
@@ -263,7 +267,7 @@ if (navigator.getUserMedia) {
     }
 
     save.onclick = function() {
-      console.log('save clicked');
+      // console.log('save clicked');
       // record.style.background = "";
       // stop.style.background = "gray";
       // save.style.background = "gray";
@@ -402,7 +406,7 @@ if (navigator.getUserMedia) {
     audio.setAttribute('controls', '');
 
     audio.onended = (function() {
-      console.log('audio ended');
+      // console.log('audio ended');
       restartTimeout = setTimeout(function() {
         restart.click()
       }, TimerRestart);
@@ -473,7 +477,7 @@ if (navigator.getUserMedia) {
 }
 
 function visualize(stream) {
-  console.log('visualize stream');
+  // console.log('visualize stream');
   var source = audioCtx.createMediaStreamSource(stream);
 
   var analyser = audioCtx.createAnalyser();
@@ -492,11 +496,11 @@ function visualize(stream) {
   function draw() {
     requestAnimationFrame(draw);
 
-    console.log('rt: ' + rt);
+    // console.log('rt: ' + rt);
 
     WIDTH = (rt / (45.3)); // 397 divided by 180000 * 100
 
-    console.log('WIDTH: ' + WIDTH);
+    // console.log('WIDTH: ' + WIDTH);
 
     // recordInterval = setInterval(updateWidth, 1);
     //
