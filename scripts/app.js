@@ -34,8 +34,8 @@ var audio;
 var restartTimeout;
 var TimerRestart = 15000;
 
-var recordInterval;
-var rt = 0;
+// var recordInterval;
+// var rt = 0;
 
 // disable stop button while not recording
 
@@ -113,7 +113,7 @@ if (navigator.getUserMedia) {
     // restart.click();
 
     restart.onclick = function() {
-      // console.log("restart clicked");
+      console.log("restart clicked");
       // record.style.background = "";
       // stop.style.background = "gray";
       // save.style.background = "gray";
@@ -158,9 +158,9 @@ if (navigator.getUserMedia) {
       thxTimeout = null;
       // console.log('thxTimeout: ' + thxTimeout);
 
-      clearInterval(recordInterval);
-      recordInterval = null;
-      rt = 0;
+      // clearInterval(recordInterval);
+      // recordInterval = null;
+      // rt = 0;
     }
 
     record.onclick = function() {
@@ -199,16 +199,17 @@ if (navigator.getUserMedia) {
       deleteLastClip();
 
       // Set timeout to enforce recording time limit by simulating click on stop button
-      recordTimeout = setTimeout(function() {
-        stop.click()
-      }, TimerRecord);
-
-      recordInterval = setInterval(updateWidth, 10);
-
-      function updateWidth() {
-        rt++;
-      }
+      // recordTimeout = setTimeout(function() {
+      //   stop.click()
+      // }, TimerRecord);
+      //
+      // recordInterval = setInterval(updateWidth, 10);
+      //
+      // function updateWidth() {
+      //   rt++;
+      // }
     }
+    
     stop.onclick = function() {
       // console.log("stop clicked");
       mediaRecorder.stop();
@@ -254,9 +255,9 @@ if (navigator.getUserMedia) {
       recordTimeout = null;
       // console.log('recordTimeout: ' + recordTimeout);
 
-      clearInterval(recordInterval);
-      recordInterval = null;
-      rt = 0;
+      // clearInterval(recordInterval);
+      // recordInterval = null;
+      // rt = 0;
 
       // Set timeout to enforce recording time limit by simulating click on stop button
       // audio.ended = (function() {
@@ -488,7 +489,7 @@ function visualize(stream) {
   source.connect(analyser);
   //analyser.connect(audioCtx.destination);
 
-
+  WIDTH = canvas.width;
   HEIGHT = canvas.height;
 
   draw()
@@ -498,7 +499,7 @@ function visualize(stream) {
 
     // console.log('rt: ' + rt);
 
-    WIDTH = (rt / (45.3)); // 397 divided by 180000 * 100
+    // WIDTH = (rt / (45.3)); // 397 divided by 180000 * 100
 
     // console.log('WIDTH: ' + WIDTH);
 
@@ -522,13 +523,15 @@ function visualize(stream) {
 
     analyser.getByteTimeDomainData(dataArray);
 
-    if (rt > 0) {
-      canvasCtx.fillStyle = 'rgba(20, 204, 247, 1)';
-    } else {
-      // resets canvas bkgd to white
-      canvasCtx.fillStyle = 'rgba(255, 255, 255, 1)';
-      canvasCtx.fillRect(0, 0, 397, HEIGHT);
-    }
+    // if (rt > 0) {
+    //   canvasCtx.fillStyle = 'rgba(20, 204, 247, 1)';
+    // } else {
+    //   // resets canvas bkgd to white
+    //   canvasCtx.fillStyle = 'rgba(255, 255, 255, 1)';
+    //   canvasCtx.fillRect(0, 0, 397, HEIGHT);
+    // }
+
+    canvasCtx.fillStyle = 'rgba(255, 255, 255, 1)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
     canvasCtx.lineWidth = 2;
