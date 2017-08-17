@@ -37,28 +37,15 @@ var TimerRestart = 15000;
 // var recordInterval;
 // var rt = 0;
 
-// disable stop button while not recording
-
 // inits
-
 restart.style.display = "none";
 stop.style.display = "none";
 save.style.display = "none";
 
-restart.disabled = true;
-record.disabled = false;
-stop.disabled = true;
-save.disabled = true;
-
 // canvas.style.display = "none";
 recordImg.style.opacity = "1";
 
-// grey out disabled buttons
-// stop.style.background = "gray";
-// save.style.background = "gray";
-
 // visualiser setup - create web audio api context and canvas
-
 var audioCtx = new(window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext("2d");
 
@@ -108,16 +95,8 @@ if (navigator.getUserMedia) {
 
     // visualize(stream);
 
-    // doesn't work...trying to call a the restart on init...ask Spencer
-    // console.log('about to call restart.click');
-    // restart.click();
-
     restart.onclick = function() {
-      console.log("restart clicked");
-      // record.style.background = "";
-      // stop.style.background = "gray";
-      // save.style.background = "gray";
-      // mediaRecorder.requestData();
+      // console.log("restart clicked");
 
       //stop playing audio
       audio.pause();
@@ -129,7 +108,6 @@ if (navigator.getUserMedia) {
       record.style.display = "block";
       recordingImg.style.transitionDelay = '0s';
       recordImg.style.opacity = "1";
-      //console.log('recordImg.style.opacity: ' + recordImg.style.opacity);
 
       stop.style.display = "none";
       stopImg.style.transitionDelay = '0s';
@@ -144,20 +122,17 @@ if (navigator.getUserMedia) {
       savedImg.style.transitionDelay = '0s';
       savedImg.style.opacity = "0";
 
-      restart.disabled = true;
-      record.disabled = false;
-      stop.disabled = true;
-      save.disabled = true;
-
       // Clear the timelimit timeout
       clearTimeout(restartTimeout);
       restartTimeout = null;
       // console.log('restartTimeout: ' + restartTimeout);
 
+      // Clear the thx msg timeout
       clearTimeout(thxTimeout);
       thxTimeout = null;
       // console.log('thxTimeout: ' + thxTimeout);
 
+      // Clear the record interval for time visualization
       // clearInterval(recordInterval);
       // recordInterval = null;
       // rt = 0;
@@ -171,9 +146,6 @@ if (navigator.getUserMedia) {
 
       visualize(stream);
 
-      //record.style.background = "red";
-      //save.style.background = "gray";
-      //stop.style.background = "";
       restart.style.display = "none";
       restartImg.style.opacity = "0";
 
@@ -215,12 +187,6 @@ if (navigator.getUserMedia) {
       mediaRecorder.stop();
       console.log('mediaRecorder.state:' + mediaRecorder.state);
 
-      // record.style.background = "";
-      // record.style.color = "";
-      // stop.style.background = "gray";
-      // save.style.background = "";
-      // mediaRecorder.requestData();
-
       restart.style.display = "block";
       restartImg.style.transitionDelay = '1.8s';
       restartImg.style.opacity = "1";
@@ -259,20 +225,10 @@ if (navigator.getUserMedia) {
       // recordInterval = null;
       // rt = 0;
 
-      // Set timeout to enforce recording time limit by simulating click on stop button
-      // audio.ended = (function() {
-      //   restartTimeout = setTimeout(function() {
-      //     restart.click()
-      //   }, TimerRestart);
-      // });
     }
 
     save.onclick = function() {
       // console.log('save clicked');
-      // record.style.background = "";
-      // stop.style.background = "gray";
-      // save.style.background = "gray";
-      // mediaRecorder.requestData();
 
       restart.style.display = "block";
       restartImg.style.opacity = "1";
