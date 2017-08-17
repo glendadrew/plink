@@ -198,16 +198,7 @@ if (navigator.getUserMedia) {
 
       deleteLastClip();
 
-      // Clear the timelimit timeout
-      clearTimeout(restartTimeout);
-      restartTimeout = null;
-      // console.log('restartTimeout: ' + restartTimeout);
-
-      clearTimeout(thxTimeout);
-      thxTimeout = null;
-      // console.log('thxTimeout: ' + thxTimeout);
-
-      Set timeout to enforce recording time limit by simulating click on stop button
+      // Set timeout to enforce recording time limit by simulating click on stop button
       recordTimeout = setTimeout(function() {
         stop.click()
       }, TimerRecord);
@@ -260,13 +251,9 @@ if (navigator.getUserMedia) {
       save.disabled = false;
 
       // Clear the timelimit timeout
-      clearTimeout(restartTimeout);
-      restartTimeout = null;
-      // console.log('restartTimeout: ' + restartTimeout);
-
-      clearTimeout(thxTimeout);
-      thxTimeout = null;
-      // console.log('thxTimeout: ' + thxTimeout);
+      clearTimeout(recordTimeout);
+      recordTimeout = null;
+      // console.log('recordTimeout: ' + recordTimeout);
 
       // clearInterval(recordInterval);
       // recordInterval = null;
@@ -310,10 +297,6 @@ if (navigator.getUserMedia) {
       record.disabled = false;
       stop.disabled = true;
       save.disabled = true;
-
-      // Clear the timelimit timeout
-      clearTimeout(recordTimeout);
-      recordTimeout = null;
 
       thxTimeout = setTimeout(function() {
         restart.click()
