@@ -4,45 +4,13 @@
   box-sizing: border-box;
 }
 
-
-/*
-html, body {
-height: 100%;
-}
-*/
-
 body {
-  /*
-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-font-size: 0.8rem;
-*/
   overflow: hidden;
   width: 1920px;
   height: 1080px;
   background-color: black;
   background-repeat: no-repeat;
 }
-
-
-/*
-.wrapper {
-height: 100%;
-display: flex;
-flex-direction: column;
-}
-
-h1, h2 {
-font-size: 2rem;
-text-align: center;
-font-weight: normal;
-padding: 0.5rem 0 0 0;
-}
-
-.main-controls {
-padding: 0.5rem 0;
-}
-
-*/
 
 canvas {
   position: absolute;
@@ -56,52 +24,12 @@ canvas {
   transition: all .1s;
 }
 
-
-/*
-#buttons {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-}
-
-#buttons button {
-font-size: 1rem;
-padding: 1rem;
-width:600px;
-height:600px;
-width: calc(50% - 0.25rem);
-
-}
-*/
-
 div, span {
   position: absolute;
   background: transparent;
   border: none;
   border-width:0px;
-  /*
-font-size: 1rem;
-background: #0088cc;
-text-align: center;
-color: white;
-border: none;
-transition: all 0.2s;
-padding: 0.5rem;
-*/
 }
-
-
-/*
-button:hover, button:focus {
-box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
-background: #0ae;
-}
-
-button:active {
-box-shadow: inset 0px 0px 20px rgba(0,0,0,0.5);
-transform: translateY(2px);
-}
-*/
 
 .recordImg, .recordingImg, .stopImg, .saveImg, .savedImg, .playingImg, .restartImg {
   opacity: 0;
@@ -151,14 +79,14 @@ transform: translateY(2px);
   left: 54px;
   top: 336px;
   width: 174px;
-  height: 112px;
+  height: 212px;
 }
 
 #record {
-  left: 232px;
-  top: 488px;
-  width: 376px;
-  height: 297px;
+  left: 132px;
+  top: 88px;
+  width: 576px;
+  height: 897px;
 
 }
 
@@ -166,14 +94,14 @@ transform: translateY(2px);
   left: 578px;
   top: 292px;
   width: 389px;
-  height: 233px;
+  height: 633px;
 }
 
 #save {
-  left: 1320px;
-  top: 309px;
-  width: 470px;
-  height: 289px;
+  left: 1120px;
+  top: 209px;
+  width: 670px;
+  height: 589px;
 }
 
 
