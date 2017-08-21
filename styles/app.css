@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  cursor:none;
 }
 
 body {
@@ -71,7 +72,7 @@ div, span {
 }
 
 #restart:hover, #record:hover, #stop:hover, #save:hover {
-  /*cursor: pointer;*/
+  cursor: none;
   /*background-color: red;*/
 }
 
