@@ -71,7 +71,7 @@ div, span {
 }
 
 #restart:hover, #record:hover, #stop:hover, #save:hover {
-  cursor: pointer;
+  /*cursor: pointer;*/
   /*background-color: red;*/
 }
 
@@ -153,7 +153,7 @@ label {
   top: 2px;
   right: 3px;
   z-index: 5;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
 input[type=checkbox] {
@@ -193,7 +193,7 @@ input[type=checkbox]:checked~aside {
 /* Cursor when clip name is clicked over */
 
 .clip p {
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
 
