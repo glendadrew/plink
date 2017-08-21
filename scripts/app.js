@@ -151,6 +151,7 @@ if (navigator.getUserMedia) {
 
       record.style.display = "none";
       recordImg.style.opacity = "0";
+      stopImg.style.transitionDelay = '.1s';
       recordingImg.style.opacity = "1";
 
       stop.style.display = "block";
